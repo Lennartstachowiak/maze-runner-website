@@ -9,14 +9,13 @@ const fetcher = async (args: FetchProps) => {
   return await res.json();
 };
 
-const NEXT_PUBLIC_API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
-console.log(NEXT_PUBLIC_API_ENDPOINT);
-console.log(process.env);
+const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
+console.log(API_ENDPOINT);
 
 export const useGetMazes = () => {
   const { data, error, isLoading } = useSWR(
     [
-      `${NEXT_PUBLIC_API_ENDPOINT}/v1/get_mazes`,
+      `${API_ENDPOINT}/v1/get_mazes`,
       {
         method: "GET",
         credentials: "include",
@@ -39,7 +38,7 @@ export const useGetSingleMaze = (id: string | undefined) => {
   const { data, error, isLoading } = useSWR(
     id
       ? [
-          `${NEXT_PUBLIC_API_ENDPOINT}/v1/get_single_maze?id=${id}`,
+          `${API_ENDPOINT}/v1/get_single_maze?id=${id}`,
           {
             method: "GET",
             credentials: "include",
@@ -71,18 +70,15 @@ export const getMazeAlgorithmSolution = async ({
   mazeId: string;
 }) => {
   try {
-    const res = await fetch(
-      `${NEXT_PUBLIC_API_ENDPOINT}/v1/get_maze_algorithm_solution`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          algorithmId: algorithmId,
-          mazeId: mazeId,
-        }),
-      }
-    );
+    const res = await fetch(`${API_ENDPOINT}/v1/get_maze_algorithm_solution`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        algorithmId: algorithmId,
+        mazeId: mazeId,
+      }),
+    });
     if (res.status !== 200) {
       throw res.status;
     }
@@ -96,7 +92,7 @@ export const getMazeAlgorithmSolution = async ({
 export const useGetAlgorithms = () => {
   const { data, error, isLoading } = useSWR(
     [
-      `${NEXT_PUBLIC_API_ENDPOINT}/v1/get_algorithms`,
+      `${API_ENDPOINT}/v1/get_algorithms`,
       {
         method: "GET",
         credentials: "include",
