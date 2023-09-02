@@ -9,14 +9,14 @@ const fetcher = async (args: FetchProps) => {
   return await res.json();
 };
 
-const API_ENDPOINT = process.env.API_ENDPOINT;
-console.log(API_ENDPOINT);
+const NEXT_PUBLIC_API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
+console.log(NEXT_PUBLIC_API_ENDPOINT);
 console.log(process.env);
 
 export const useGetMazes = () => {
   const { data, error, isLoading } = useSWR(
     [
-      `${API_ENDPOINT}/v1/get_mazes`,
+      `${NEXT_PUBLIC_API_ENDPOINT}/v1/get_mazes`,
       {
         method: "GET",
         credentials: "include",
@@ -39,7 +39,7 @@ export const useGetSingleMaze = (id: string | undefined) => {
   const { data, error, isLoading } = useSWR(
     id
       ? [
-          `${API_ENDPOINT}/v1/get_single_maze?id=${id}`,
+          `${NEXT_PUBLIC_API_ENDPOINT}/v1/get_single_maze?id=${id}`,
           {
             method: "GET",
             credentials: "include",
@@ -71,15 +71,18 @@ export const getMazeAlgorithmSolution = async ({
   mazeId: string;
 }) => {
   try {
-    const res = await fetch(`${API_ENDPOINT}/v1/get_maze_algorithm_solution`, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        algorithmId: algorithmId,
-        mazeId: mazeId,
-      }),
-    });
+    const res = await fetch(
+      `${NEXT_PUBLIC_API_ENDPOINT}/v1/get_maze_algorithm_solution`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          algorithmId: algorithmId,
+          mazeId: mazeId,
+        }),
+      }
+    );
     if (res.status !== 200) {
       throw res.status;
     }
@@ -93,7 +96,7 @@ export const getMazeAlgorithmSolution = async ({
 export const useGetAlgorithms = () => {
   const { data, error, isLoading } = useSWR(
     [
-      `${API_ENDPOINT}/v1/get_algorithms`,
+      `${NEXT_PUBLIC_API_ENDPOINT}/v1/get_algorithms`,
       {
         method: "GET",
         credentials: "include",

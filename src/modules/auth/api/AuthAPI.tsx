@@ -9,12 +9,12 @@ const fetcher = async (args: FetchProps) => {
   return await res.json();
 };
 
-const API_ENDPOINT = process.env.API_ENDPOINT;
+const NEXT_PUBLIC_API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const useHandleAuth = () => {
   const { data, error, isLoading } = useSWR(
     [
-      `${API_ENDPOINT}/v1/@me`,
+      `${NEXT_PUBLIC_API_ENDPOINT}/v1/@me`,
       {
         method: "GET",
         credentials: "include",
@@ -35,7 +35,7 @@ const useHandleAuth = () => {
 
 const handleLogin = async (email: string, password: string) => {
   try {
-    const res = await fetch(`${API_ENDPOINT}/v1/login`, {
+    const res = await fetch(`${NEXT_PUBLIC_API_ENDPOINT}/v1/login`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -66,7 +66,7 @@ const handleRegister = async (
     return;
   }
   try {
-    const res = await fetch(`${API_ENDPOINT}/v1/register`, {
+    const res = await fetch(`${NEXT_PUBLIC_API_ENDPOINT}/v1/register`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -88,7 +88,7 @@ const handleRegister = async (
 };
 
 const handleLogout = async () => {
-  await fetch(`${API_ENDPOINT}/v1/logout`, {
+  await fetch(`${NEXT_PUBLIC_API_ENDPOINT}/v1/logout`, {
     method: "POST",
     credentials: "include",
     headers: {
