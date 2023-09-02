@@ -10,6 +10,8 @@ const fetcher = async (args: FetchProps) => {
 };
 
 const API_ENDPOINT = process.env.API_ENDPOINT;
+console.log(API_ENDPOINT);
+console.log(process.env);
 
 export const useGetMazes = () => {
   const { data, error, isLoading } = useSWR(
