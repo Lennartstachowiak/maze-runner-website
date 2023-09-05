@@ -6,9 +6,7 @@ import getTheme from "../theme";
 import React from "react";
 import Wrapper from "../common/components/components/Wrapper";
 import LoadingDialog from "../common/components/components/LoadingDialog";
-import dotenv from "dotenv";
-
-dotenv.config();
+import "dotenv/config";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const theme = getTheme();
