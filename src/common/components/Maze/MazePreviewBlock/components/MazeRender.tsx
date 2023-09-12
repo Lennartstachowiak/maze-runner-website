@@ -56,7 +56,7 @@ const GameComponent = (props: MazeComponentProps) => {
       for (let row = 0; row < currentMaze.length; row++) {
         for (let col = 0; col < currentMaze[row].length; col++) {
           const cell = currentMaze[row][col];
-          let direction = "";
+          let stepRound = "";
           const isOnPath = currentSolution?.some((step: SolutionObject) =>
             _.isEqual(step, [row, col])
           );
@@ -69,15 +69,7 @@ const GameComponent = (props: MazeComponentProps) => {
             ) => {
               const nextStep = steps[index + 1];
               if (_.isEqual(step, [row, col]) && nextStep) {
-                if (step[0] > nextStep[0]) {
-                  direction = "⬆︎";
-                } else if (step[0] < nextStep[0]) {
-                  direction = "⬇︎";
-                } else if (step[1] < nextStep[1]) {
-                  direction = "➡︎";
-                } else if (step[1] > nextStep[1]) {
-                  direction = "⬅︎";
-                }
+                stepRound = `${index}`;
                 return true;
               }
             }
@@ -99,7 +91,7 @@ const GameComponent = (props: MazeComponentProps) => {
             }
             ctx.font = `${cellSize / 2.5}px serif`;
             ctx.fillStyle = BLUE;
-            ctx.fillText(direction, centerX, centerY);
+            ctx.fillText(stepRound, centerX - 8, centerY);
           }
 
           if (cell.start) {
