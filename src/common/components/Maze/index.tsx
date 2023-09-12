@@ -81,9 +81,7 @@ const MazePreview = (componentProps: componentPropsInterface) => {
         algorithmId: selectedAlgorithm?.id,
         mazeId: maze?.id,
       });
-      console.log(mazeSearchSolution);
       setMazeSoltion(mazeSearchSolution);
-      console.log(mazeSearchSolution);
       score.current.steps = mazeSearchSolution.solution.length;
       score.current.visitedSteps = mazeSearchSolution.visited.length;
       score.current.score = mazeSearchSolution.score;
