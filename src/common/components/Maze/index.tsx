@@ -24,6 +24,7 @@ export type ScoreType = {
 export type MazeSolution = {
   solution: [];
   visited: [];
+  score: number;
 };
 
 interface UserProps {
@@ -82,16 +83,10 @@ const MazePreview = (componentProps: componentPropsInterface) => {
       });
       console.log(mazeSearchSolution);
       setMazeSoltion(mazeSearchSolution);
+      console.log(mazeSearchSolution);
       score.current.steps = mazeSearchSolution.solution.length;
       score.current.visitedSteps = mazeSearchSolution.visited.length;
-      const baseScore = 1000;
-      const searchStep = 5 * score.current.visitedSteps;
-      const soultionSteps = 10 * score.current.steps;
-      const solutionPath =
-        (score.current.steps + score.current.visitedSteps) / 3;
-      score.current.score = Math.round(
-        baseScore - (searchStep + soultionSteps) + solutionPath
-      );
+      score.current.score = mazeSearchSolution.score;
     };
     return (
       <Grid container spacing={3} paddingBottom={8}>
