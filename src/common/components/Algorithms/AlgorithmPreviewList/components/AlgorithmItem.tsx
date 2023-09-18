@@ -1,8 +1,8 @@
 import { Button, Typography } from "@mui/material";
 import React from "react";
-import { AlgorithmBasic, AlgorithmInterface } from "../types";
+import { AlgorithmState, AlgorithmInterface } from "../types";
 
-const AlgorithmItem = (props: AlgorithmInterface & AlgorithmBasic) => {
+const AlgorithmItem = (props: AlgorithmInterface & AlgorithmState) => {
   const { id, name, selectedAlgorithm, setAlgorithm } = props;
   return (
     <Button

@@ -89,6 +89,7 @@ const MazePreview = (componentProps: componentPropsInterface) => {
       <Grid container spacing={3} paddingBottom={8}>
         <Grid item width="100%">
           <AlgorithmListHorizontal
+            title="Select an algorithm"
             selectedAlgorithm={selectedAlgorithm}
             setAlgorithm={setAlgorithm}
           />

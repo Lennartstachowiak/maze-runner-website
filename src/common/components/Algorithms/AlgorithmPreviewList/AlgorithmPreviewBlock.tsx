@@ -1,11 +1,12 @@
 import React from "react";
 import AlgorithmList from "./components/AlgorithmList";
-import { AlgorithmBasic } from "./types";
+import { AlgorithmListInterface } from "./types";
 
-const AlgorithmListVertical = (props: AlgorithmBasic) => {
-  const { selectedAlgorithm, setAlgorithm } = props;
+const AlgorithmListVertical = (props: AlgorithmListInterface) => {
+  const { title, selectedAlgorithm, setAlgorithm } = props;
   return (
     <AlgorithmList
+      title={title}
       flexWrap="wrap"
       selectedAlgorithm={selectedAlgorithm}
       setAlgorithm={setAlgorithm}
@@ -13,10 +14,11 @@ const AlgorithmListVertical = (props: AlgorithmBasic) => {
   );
 };
 
-const AlgorithmListHorizontal = (props: AlgorithmBasic) => {
-  const { selectedAlgorithm, setAlgorithm } = props;
+const AlgorithmListHorizontal = (props: AlgorithmListInterface) => {
+  const { title, selectedAlgorithm, setAlgorithm } = props;
   return (
     <AlgorithmList
+      title={title}
       flexWrap="nowrap"
       selectedAlgorithm={selectedAlgorithm}
       setAlgorithm={setAlgorithm}
