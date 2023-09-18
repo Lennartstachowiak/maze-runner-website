@@ -1,6 +1,7 @@
 export interface AlgorithmInterface {
   id: string;
   name: string;
+  code?: string;
 }
 
 export interface AlgorithmState {

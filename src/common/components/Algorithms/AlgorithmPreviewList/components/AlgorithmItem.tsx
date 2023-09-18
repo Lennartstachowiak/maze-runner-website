@@ -3,13 +3,14 @@ import React from "react";
 import { AlgorithmState, AlgorithmInterface } from "../types";
 
 const AlgorithmItem = (props: AlgorithmInterface & AlgorithmState) => {
-  const { id, name, selectedAlgorithm, setAlgorithm } = props;
+  const { id, name, code, selectedAlgorithm, setAlgorithm } = props;
   return (
     <Button
       onClick={() => {
         setAlgorithm({
           id: id,
           name: name,
+          code: code,
         });
       }}
       sx={{

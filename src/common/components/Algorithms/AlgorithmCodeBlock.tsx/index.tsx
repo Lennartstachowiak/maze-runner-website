@@ -11,17 +11,20 @@ import "prism-themes/themes/prism-one-light.css";
 interface CodeBlockProps {
   showLineNumbers: boolean;
   header: string;
-  initCode: string;
+  initCode: string | undefined;
 }
 
 const CodeBlockComponent = (props: CodeBlockProps) => {
   const { initCode, showLineNumbers, header } = props;
+  console.log(initCode);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [previousText, setPreviousText] = React.useState<string | null>(null);
-
-  const [code, setCode] = React.useState(initCode);
-
+  const [code, codeText] = React.useState(initCode);
+  const [editableCode, setEditableCode] = React.useState(initCode);
+  if (code !== initCode) {
+    codeText(initCode);
+    setEditableCode(initCode);
+  }
   return (
     <Grid
       container
@@ -57,17 +60,19 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
             </Typography>
           </Grid>
         )}
-        <Editor
-          value={code}
-          onValueChange={(code) => setCode(code)}
-          highlight={(code) =>
-            Prism.highlight(code, Prism.languages.python, "python")
-          }
-          padding={10}
-          style={{
-            color: "#262B47",
-          }}
-        />
+        {editableCode && (
+          <Editor
+            value={editableCode}
+            onValueChange={(code) => setEditableCode(code)}
+            highlight={(code) =>
+              Prism.highlight(code, Prism.languages.python, "python")
+            }
+            padding={10}
+            style={{
+              color: "#262B47",
+            }}
+          />
+        )}
 
         {error && (
           <Grid

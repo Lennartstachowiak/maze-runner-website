@@ -50,6 +50,7 @@ const AlgorithmList = (props: AlgorithmListDirections) => {
             <AlgorithmItem
               id={algorithm.id}
               name={algorithm.name}
+              code={algorithm.code}
               setAlgorithm={setAlgorithm}
               selectedAlgorithm={selectedAlgorithm}
             />

@@ -5,32 +5,11 @@ import { AlgorithmInterface } from "./AlgorithmPreviewList/types";
 import Grid from "@mui/material/Grid";
 import CodeBlockComponent from "./AlgorithmCodeBlock.tsx";
 
-const code = `def dfs(node, maze, solution, visited):
-    (x, y) = node
-    # Refactor this part is duplicated
-    cell = maze.structure[x][y]
-    if type(cell) == dict:
-        cell = Cell(**cell)
-    if cell.goal:
-        solution.append(node)
-        return True
-    directions = [(0, -1), (-1, 0), (0, 1), (1, 0)]  # W, N, E, S
-    for direction, (dx, dy) in zip(['west', 'north', 'east', 'south'], directions):
-        next_x, next_y = x + dx, y + dy
-        if (0 <= next_x < maze.height and
-            0 <= next_y < maze.width and
-            not (next_x, next_y) in visited and
-                getattr(cell, direction) == 0):
-            visited.append((next_x, next_y))
-            if dfs((next_x, next_y), maze, solution, visited):
-                solution.append(node)
-                return True
-    return False";`;
-
 const MyAlgorithms = () => {
   const [selectedAlgorithm, setAlgorithm] = useState<AlgorithmInterface | null>(
     null
   );
+  console.log(selectedAlgorithm);
   return (
     <Grid container>
       <Grid item xs={5.2}>
@@ -42,7 +21,7 @@ const MyAlgorithms = () => {
       </Grid>
       <Grid item xs={6.8}>
         <CodeBlockComponent
-          initCode={code}
+          initCode={selectedAlgorithm?.code}
           showLineNumbers={true}
           header={selectedAlgorithm ? selectedAlgorithm?.name : ""}
         />
