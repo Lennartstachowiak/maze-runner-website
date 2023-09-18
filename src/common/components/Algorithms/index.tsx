@@ -33,14 +33,14 @@ const MyAlgorithms = () => {
   );
   return (
     <Grid container>
-      <Grid item>
+      <Grid item xs={5.2}>
         <AlgorithmListVertical
           title="My Algorithms"
           selectedAlgorithm={selectedAlgorithm}
           setAlgorithm={setAlgorithm}
         />
       </Grid>
-      <Grid item>
+      <Grid item xs={6.8}>
         <CodeBlockComponent
           initCode={code}
           showLineNumbers={true}

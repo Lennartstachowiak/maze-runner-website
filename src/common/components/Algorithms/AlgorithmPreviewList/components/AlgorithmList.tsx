@@ -43,7 +43,7 @@ const AlgorithmList = (props: AlgorithmListDirections) => {
             paddingBottom={flexWrap === "wrap" ? 2 : 0}
             sx={{
               transform: `scale(${
-                algorithm.id === selectedAlgorithm?.id ? 1.1 : 1
+                algorithm.id === selectedAlgorithm?.id ? 1.05 : 1
               })`,
             }}
           >
