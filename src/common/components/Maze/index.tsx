@@ -8,12 +8,11 @@ import {
   useGetSingleMaze,
 } from "../../../modules/API";
 import LoadingDialog from "../components/LoadingDialog";
-import AlgorithmSelection, {
-  AlgorithmInterface,
-} from "./Algorithm/AlgorithmPreviewBlock";
 import MazePreviewBlock from "./MazePreviewBlock";
 import Menu from "./Menu";
 import RegisterDialog from "../components/RegisterAndLogin";
+import { AlgorithmInterface } from "../Algorithms/AlgorithmPreviewList/types";
+import { AlgorithmListHorizontal } from "../Algorithms/AlgorithmPreviewList/AlgorithmPreviewBlock";
 
 export type ScoreType = {
   steps: number;
@@ -89,7 +88,7 @@ const MazePreview = (componentProps: componentPropsInterface) => {
     return (
       <Grid container spacing={3} paddingBottom={8}>
         <Grid item width="100%">
-          <AlgorithmSelection
+          <AlgorithmListHorizontal
             selectedAlgorithm={selectedAlgorithm}
             setAlgorithm={setAlgorithm}
           />

@@ -34,6 +34,16 @@ const Header = (props: HeaderProps) => {
       console.log(error);
     }
   };
+
+  const handleGoToAlgorithm = () => {
+    try {
+      router.push("/my_algorithms");
+      handleDrawerClick();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [drawerState, setDrawerState] = React.useState(false);
 
   const handleDrawerClick = () => {
@@ -115,7 +125,15 @@ const Header = (props: HeaderProps) => {
                     <Typography variant="body1">Logout</Typography>
                   </Button>
                 </Grid>
-                <Grid item alignItems="flex-end"></Grid>
+                <Grid item>
+                  <Button
+                    variant="text"
+                    color="primary"
+                    onClick={handleGoToAlgorithm}
+                  >
+                    <Typography variant="body1">My Algorithms</Typography>
+                  </Button>
+                </Grid>
               </Grid>
               <Box
                 sx={{
