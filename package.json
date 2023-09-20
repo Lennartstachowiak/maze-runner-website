@@ -33,8 +33,6 @@
     "react-code-blocks": "^0.1.4",
     "react-dom": "^18.2.0",
     "react-pdf": "^6.2.0",
-    "react-scripts": "5.0.1",
-    "react-simple-code-editor": "^0.13.1",
     "swr": "^2.0.3"
   },
   "scripts": {
