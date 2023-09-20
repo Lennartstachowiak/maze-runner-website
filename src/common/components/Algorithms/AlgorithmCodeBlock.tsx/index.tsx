@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Grid, Typography, CircularProgress, Button } from "@mui/material";
-import { CopyBlock, atomOneLight } from "react-code-blocks";
 import React from "react";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Editor from "@monaco-editor/react";
-import { constrainedEditor } from "constrained-editor-plugin";
 import { saveAlgorithmChanges } from "../../../../modules/API";
 import { AlgorithmInterface } from "../AlgorithmPreviewList/types";
 
