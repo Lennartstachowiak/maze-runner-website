@@ -1,30 +1,39 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Grid, Typography, CircularProgress } from "@mui/material";
+import { Grid, Typography, CircularProgress, Button } from "@mui/material";
 import { CopyBlock, atomOneLight } from "react-code-blocks";
 import React from "react";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
-import Editor from "react-simple-code-editor";
-import Prism from "prismjs";
-import "prismjs/components/prism-python";
-import "prism-themes/themes/prism-one-light.css";
+import Editor from "@monaco-editor/react";
+import { constrainedEditor } from "constrained-editor-plugin";
+import { saveAlgorithmChanges } from "../../../../modules/API";
+import { AlgorithmInterface } from "../AlgorithmPreviewList/types";
 
 interface CodeBlockProps {
   showLineNumbers: boolean;
-  header: string;
-  initCode: string | undefined;
+  algorithm: AlgorithmInterface | null;
 }
 
 const CodeBlockComponent = (props: CodeBlockProps) => {
-  const { initCode, showLineNumbers, header } = props;
-  console.log(initCode);
+  const { algorithm, showLineNumbers } = props;
+  const algorithmCode = algorithm?.code;
+  const algorithmId = algorithm?.id;
+  const headerName = algorithm?.name;
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [code, codeText] = React.useState(initCode);
-  const [editableCode, setEditableCode] = React.useState(initCode);
-  if (code !== initCode) {
-    codeText(initCode);
-    setEditableCode(initCode);
+  const [code, codeText] = React.useState(algorithmCode);
+  const [editableCode, setEditableCode] = React.useState(algorithmCode);
+  if (code !== algorithmCode) {
+    codeText(algorithmCode);
+    setEditableCode(algorithmCode);
   }
+  const handleSaveChanges = async () => {
+    if (editableCode && algorithmId) {
+      await saveAlgorithmChanges({
+        algorithmId: algorithmId,
+        newCode: editableCode,
+      });
+    }
+  };
   return (
     <Grid
       container
@@ -39,11 +48,27 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
       <Grid container justifyContent="space-between">
         <Grid item>
           <Typography variant="h3" color="initial" paddingBottom={2.5}>
-            {header}
+            {headerName}
           </Typography>
         </Grid>
+        <Grid item>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleSaveChanges}
+          >
+            <Typography variant="h5" color="secondary">
+              Save Changes
+            </Typography>
+          </Button>
+        </Grid>
       </Grid>
-      <Grid height="calc(100% - 52px)" overflow="auto" sx={{ borderRadius: 4 }}>
+      <Grid
+        container
+        height="calc(100% - 52px)"
+        overflow="auto"
+        sx={{ borderRadius: 4 }}
+      >
         {loading && (
           <Grid
             container
@@ -62,15 +87,10 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
         )}
         {editableCode && (
           <Editor
+            height="70vh"
+            defaultLanguage="javascript"
             value={editableCode}
-            onValueChange={(code) => setEditableCode(code)}
-            highlight={(code) =>
-              Prism.highlight(code, Prism.languages.python, "python")
-            }
-            padding={10}
-            style={{
-              color: "#262B47",
-            }}
+            onChange={(code) => setEditableCode(code)}
           />
         )}
 

@@ -9,21 +9,19 @@ const MyAlgorithms = () => {
   const [selectedAlgorithm, setAlgorithm] = useState<AlgorithmInterface | null>(
     null
   );
-  console.log(selectedAlgorithm);
   return (
     <Grid container>
-      <Grid item xs={5.2}>
+      <Grid item xs={3}>
         <AlgorithmListVertical
           title="My Algorithms"
           selectedAlgorithm={selectedAlgorithm}
           setAlgorithm={setAlgorithm}
         />
       </Grid>
-      <Grid item xs={6.8}>
+      <Grid item xs={9}>
         <CodeBlockComponent
-          initCode={selectedAlgorithm?.code}
+          algorithm={selectedAlgorithm}
           showLineNumbers={true}
-          header={selectedAlgorithm ? selectedAlgorithm?.name : ""}
         />
       </Grid>
     </Grid>

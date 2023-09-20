@@ -109,3 +109,29 @@ export const useGetAlgorithms = () => {
     isError: error,
   };
 };
+
+export const saveAlgorithmChanges = async ({
+  algorithmId,
+  newCode,
+}: {
+  algorithmId: string;
+  newCode: string;
+}) => {
+  try {
+    const res = await fetch(`${API_ENDPOINT}/v1/save_algorithm_changes`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        algorithmId: algorithmId,
+        newCode: newCode,
+      }),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
