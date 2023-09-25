@@ -52,7 +52,7 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
       try {
         const codeLinesSplit = code.split("\n");
         const codeLines = codeLinesSplit.length;
-        lastEditableLineIndex = codeLines - 2;
+        lastEditableLineIndex = codeLines - 3;
         lastEditableLineLength =
           codeLinesSplit[lastEditableLineIndex - 1].length + 1;
       } catch (error) {
@@ -61,7 +61,7 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
 
       const restrictions = [
         {
-          range: [2, 1, lastEditableLineIndex, lastEditableLineLength],
+          range: [10, 1, lastEditableLineIndex, lastEditableLineLength],
           label: "funcDefinition",
           allowMultiline: true,
         },
@@ -89,7 +89,7 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
       try {
         const codeLinesSplit = code.split("\n");
         const codeLines = codeLinesSplit.length;
-        lastEditableLineIndex = codeLines - 2;
+        lastEditableLineIndex = codeLines - 3;
         lastEditableLineLength =
           codeLinesSplit[lastEditableLineIndex - 1].length + 1;
       } catch (error) {
@@ -98,7 +98,7 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
     }
     const restrictions = [
       {
-        range: [2, 1, lastEditableLineIndex, lastEditableLineLength],
+        range: [10, 1, lastEditableLineIndex, lastEditableLineLength],
         label: "funcDefinition",
         allowMultiline: true,
       },
