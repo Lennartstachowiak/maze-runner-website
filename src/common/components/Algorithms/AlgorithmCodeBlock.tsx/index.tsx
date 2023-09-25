@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Grid, Typography, CircularProgress, Button } from "@mui/material";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
-import Editor from "@monaco-editor/react";
+import Editor, { Monaco } from "@monaco-editor/react";
+import { editor } from "monaco-editor";
 import { saveAlgorithmChanges } from "../../../../modules/API";
 import { AlgorithmInterface } from "../AlgorithmPreviewList/types";
+import {
+  ConstrainedEditorInterface,
+  constrainedEditor,
+} from "constrained-editor-plugin";
 
 interface CodeBlockProps {
   showLineNumbers: boolean;
@@ -12,6 +17,10 @@ interface CodeBlockProps {
 }
 
 const CodeBlockComponent = (props: CodeBlockProps) => {
+  const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+  const constrainedInstanceRef = useRef<ConstrainedEditorInterface | null>(
+    null
+  );
   const { algorithm, showLineNumbers } = props;
   const algorithmCode = algorithm?.code;
   const algorithmId = algorithm?.id;
@@ -32,6 +41,71 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
       });
     }
   };
+
+  // Change value for editor
+  useEffect(() => {
+    if (editorRef.current && code && constrainedInstanceRef.current) {
+      const model = editorRef.current.getModel()!;
+      model.setValue(code || "");
+      let lastEditableLineIndex = 3;
+      let lastEditableLineLength = 1;
+      try {
+        const codeLinesSplit = code.split("\n");
+        const codeLines = codeLinesSplit.length;
+        lastEditableLineIndex = codeLines - 2;
+        lastEditableLineLength =
+          codeLinesSplit[lastEditableLineIndex - 1].length + 1;
+      } catch (error) {
+        console.error(error);
+      }
+
+      const restrictions = [
+        {
+          range: [2, 1, lastEditableLineIndex, lastEditableLineLength],
+          label: "funcDefinition",
+          allowMultiline: true,
+        },
+      ];
+      constrainedInstanceRef.current.removeRestrictionsIn(model);
+      constrainedInstanceRef.current.addRestrictionsTo(model, restrictions);
+    }
+  }, [code]);
+
+  const restrictions: object[] = [];
+
+  // Restrict area fields
+  function handleEditorDidMount(
+    editor: editor.IStandaloneCodeEditor,
+    monaco: Monaco
+  ) {
+    editorRef.current = editor;
+    const constrainedInstance = constrainedEditor(monaco);
+    constrainedInstanceRef.current = constrainedInstance;
+    const model = editor.getModel()!;
+    constrainedInstance.initializeIn(editor);
+    let lastEditableLineIndex = 3;
+    let lastEditableLineLength = 1;
+    if (code) {
+      try {
+        const codeLinesSplit = code.split("\n");
+        const codeLines = codeLinesSplit.length;
+        lastEditableLineIndex = codeLines - 2;
+        lastEditableLineLength =
+          codeLinesSplit[lastEditableLineIndex - 1].length + 1;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    const restrictions = [
+      {
+        range: [2, 1, lastEditableLineIndex, lastEditableLineLength],
+        label: "funcDefinition",
+        allowMultiline: true,
+      },
+    ];
+
+    constrainedInstance.addRestrictionsTo(model, restrictions);
+  }
   return (
     <Grid
       container
@@ -89,6 +163,7 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
             defaultLanguage="javascript"
             value={editableCode}
             onChange={(code) => setEditableCode(code)}
+            onMount={handleEditorDidMount}
           />
         )}
 
