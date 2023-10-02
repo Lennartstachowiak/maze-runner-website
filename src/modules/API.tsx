@@ -110,6 +110,20 @@ export const useGetAlgorithms = () => {
   };
 };
 
+export const addNewAlgorithm = async () => {
+  try {
+    await fetch(`${API_ENDPOINT}/v1/add_new_algorithm`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const saveAlgorithmChanges = async ({
   algorithmId,
   newCode,

@@ -1,9 +1,10 @@
-import { CircularProgress, Grid } from "@mui/material";
+import { Button, CircularProgress, Grid, Typography } from "@mui/material";
 import React from "react";
 import AlgorithmItem from "./AlgorithmItem";
 import { AlgorithmInterface, AlgorithmListDirections } from "../types";
-import { useGetAlgorithms } from "../../../../../modules/API";
+import { addNewAlgorithm, useGetAlgorithms } from "../../../../../modules/API";
 import Header from "../../../components/Header";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
 
 const AlgorithmList = (props: AlgorithmListDirections) => {
   const { title, selectedAlgorithm, setAlgorithm, flexWrap } = props;
@@ -16,6 +17,9 @@ const AlgorithmList = (props: AlgorithmListDirections) => {
     isLoading: boolean;
     isError: boolean;
   } = useGetAlgorithms();
+  const handelAddAlgorithm = () => {
+    addNewAlgorithm();
+  };
   if (isError) {
     return <>ERROR</>;
   }
@@ -56,6 +60,33 @@ const AlgorithmList = (props: AlgorithmListDirections) => {
             />
           </Grid>
         ))}
+        <Grid
+          item
+          key="add-algorithm"
+          paddingLeft={2}
+          paddingBottom={flexWrap === "wrap" ? 2 : 0}
+        >
+          <Button
+            onClick={handelAddAlgorithm}
+            sx={{
+              height: "100%",
+              width: 200,
+              color: (theme) => theme.palette.primary.dark,
+              backgroundColor: (theme) => theme.palette.background.paper,
+              borderRadius: 7,
+            }}
+          >
+            <AddRoundedIcon sx={{ color: "grey.400" }} />
+            <Typography
+              variant="h5"
+              color="grey.400"
+              paddingY={1.5}
+              paddingLeft={0.3}
+            >
+              Add new algorithm
+            </Typography>
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
   );

@@ -117,77 +117,88 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
         backgroundColor: (theme) => theme.palette.background.paper,
       }}
     >
-      <Grid container justifyContent="space-between">
-        <Grid item>
-          <Typography variant="h3" color="initial" paddingBottom={2.5}>
-            {headerName}
+      {!algorithm && (
+        <Grid container justifyContent="center">
+          <Typography variant="h4" color="initial">
+            No algorithm selected.
           </Typography>
         </Grid>
-        <Grid item>
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={handleSaveChanges}
-          >
-            <Typography variant="h5" color="secondary">
-              Save Changes
-            </Typography>
-          </Button>
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        height="calc(100% - 52px)"
-        overflow="auto"
-        sx={{ borderRadius: 4 }}
-      >
-        {loading && (
+      )}
+      {algorithm && (
+        <>
+          <Grid container justifyContent="space-between">
+            <Grid item>
+              <Typography variant="h3" color="initial" paddingBottom={2.5}>
+                {headerName}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={handleSaveChanges}
+              >
+                <Typography variant="h5" color="secondary">
+                  Save Changes
+                </Typography>
+              </Button>
+            </Grid>
+          </Grid>
           <Grid
             container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            alignContent="center"
-            wrap="wrap"
-            height="100%"
+            height="calc(100% - 52px)"
+            overflow="auto"
+            sx={{ borderRadius: 4 }}
           >
-            <CircularProgress />
-            <Typography variant="h4" color="initial" paddingTop={2}>
-              Loading...
-            </Typography>
-          </Grid>
-        )}
-        {editableCode && (
-          <Editor
-            height="70vh"
-            defaultLanguage="javascript"
-            value={editableCode}
-            onChange={(code) => setEditableCode(code)}
-            onMount={handleEditorDidMount}
-          />
-        )}
+            {loading && (
+              <Grid
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                alignContent="center"
+                wrap="wrap"
+                height="100%"
+              >
+                <CircularProgress />
+                <Typography variant="h4" color="initial" paddingTop={2}>
+                  Loading...
+                </Typography>
+              </Grid>
+            )}
+            {editableCode && (
+              <Editor
+                height="70vh"
+                defaultLanguage="javascript"
+                value={editableCode}
+                onChange={(code) => setEditableCode(code)}
+                onMount={handleEditorDidMount}
+              />
+            )}
 
-        {error && (
-          <Grid
-            container
-            spacing={1}
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            alignContent="center"
-            wrap="wrap"
-            height="100%"
-          >
-            <SentimentDissatisfiedIcon
-              fontSize="large"
-              sx={{ color: "#000000" }}
-            />
-            <Typography variant="h4" color="initial" paddingTop={2}>
-              Error
-            </Typography>
+            {error && (
+              <Grid
+                container
+                spacing={1}
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                alignContent="center"
+                wrap="wrap"
+                height="100%"
+              >
+                <SentimentDissatisfiedIcon
+                  fontSize="large"
+                  sx={{ color: "#000000" }}
+                />
+                <Typography variant="h4" color="initial" paddingTop={2}>
+                  Error
+                </Typography>
+              </Grid>
+            )}
           </Grid>
-        )}
-      </Grid>
+        </>
+      )}
     </Grid>
   );
 };
