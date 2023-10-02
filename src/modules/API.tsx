@@ -146,6 +146,30 @@ export const deleteAlgorithm = async ({
   }
 };
 
+export const renameAlgorithm = async ({
+  algorithmId,
+  newName,
+}: {
+  algorithmId: string;
+  newName: string;
+}) => {
+  try {
+    await fetch(`${API_ENDPOINT}/v1/rename_algorithm`, {
+      method: "PATCH",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        algorithmId: algorithmId,
+        newName: newName,
+      }),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const saveAlgorithmChanges = async ({
   algorithmId,
   newCode,

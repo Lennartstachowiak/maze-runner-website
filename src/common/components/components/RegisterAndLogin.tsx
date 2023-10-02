@@ -83,6 +83,7 @@ const RegisterDialog = (props: RegisterDialogProps) => {
   );
   return (
     <DialogComponent
+      id="dialog-register"
       openDialog={openRegisterDialog}
       handleCloseDialog={handleCloseRegisterDialog}
       dialogTitle={dialogTitle}

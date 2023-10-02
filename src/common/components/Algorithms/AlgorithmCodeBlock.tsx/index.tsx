@@ -23,7 +23,7 @@ interface CodeBlockProps {
   showLineNumbers: boolean;
   algorithm: AlgorithmInterface | null;
   handleOpenDeleteDialog: () => void;
-  handleEditName: (algorithmId: string) => Promise<void>;
+  handleOpenRenameDialog: () => void;
 }
 
 const CodeBlockComponent = (props: CodeBlockProps) => {
@@ -31,8 +31,12 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
   const constrainedInstanceRef = useRef<ConstrainedEditorInterface | null>(
     null
   );
-  const { algorithm, showLineNumbers, handleOpenDeleteDialog, handleEditName } =
-    props;
+  const {
+    algorithm,
+    showLineNumbers,
+    handleOpenDeleteDialog,
+    handleOpenRenameDialog,
+  } = props;
   const algorithmCode = algorithm?.code;
   const algorithmId = algorithm?.id;
   const headerName = algorithm?.name;
@@ -153,7 +157,7 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
                     <Grid item>
                       <IconButton
                         aria-label="editName"
-                        onClick={() => handleEditName(algorithmId!)}
+                        onClick={handleOpenRenameDialog}
                       >
                         <EditRoundedIcon sx={{ height: 20 }} />
                       </IconButton>

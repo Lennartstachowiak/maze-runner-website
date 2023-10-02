@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { AlgorithmListVertical } from "./AlgorithmPreviewList/AlgorithmPreviewBlock";
 import { AlgorithmInterface } from "./AlgorithmPreviewList/types";
@@ -7,11 +7,13 @@ import CodeBlockComponent from "./AlgorithmCodeBlock.tsx";
 import {
   addNewAlgorithm,
   deleteAlgorithm,
+  renameAlgorithm,
   useGetAlgorithms,
 } from "../../../modules/API";
 import { KeyedMutator } from "swr";
 import { CircularProgress } from "@mui/material";
 import DeleteDialog from "./components/DeleteDialog";
+import RenameDialog from "./components/RenameDialog";
 
 const MyAlgorithms = () => {
   const [selectedAlgorithm, setAlgorithm] = useState<AlgorithmInterface | null>(
@@ -29,6 +31,12 @@ const MyAlgorithms = () => {
     mutate: KeyedMutator<unknown>;
   } = useGetAlgorithms();
 
+  useEffect(() => {
+    setAlgorithm(
+      algorithmList.find((algorithm) => algorithm.id === selectedAlgorithm?.id)!
+    );
+  }, [algorithmList]);
+
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
   const handleOpenDeleteDialog = () => {
     setOpenDeleteDialog(true);
@@ -37,18 +45,29 @@ const MyAlgorithms = () => {
     setOpenDeleteDialog(false);
   };
 
+  const [openRenameDialog, setOpenRenameDialog] = React.useState(false);
+  const handleOpenRenameDialog = () => {
+    setOpenRenameDialog(true);
+  };
+  const handleCloseRenameDialog = () => {
+    setOpenRenameDialog(false);
+  };
+
   const handelAddAlgorithm = async () => {
     await addNewAlgorithm();
-    mutate();
+    await mutate();
   };
-  const handleEditName = async (algorithmId: string) => {
-    console.log(algorithmId);
+  const handleEditName = async (algorithmId: string, newName: string) => {
+    if (algorithmId) {
+      await renameAlgorithm({ algorithmId: algorithmId, newName: newName });
+      await mutate();
+    }
   };
   const handleDeleteAlgorithm = async (algorithmId: string) => {
     if (algorithmId) {
       await deleteAlgorithm({ algorithmId: algorithmId });
       setAlgorithm(null);
-      mutate();
+      await mutate();
     }
   };
 
@@ -74,7 +93,7 @@ const MyAlgorithms = () => {
           algorithm={selectedAlgorithm}
           showLineNumbers={true}
           handleOpenDeleteDialog={handleOpenDeleteDialog}
-          handleEditName={handleEditName}
+          handleOpenRenameDialog={handleOpenRenameDialog}
         />
       </Grid>
       <DeleteDialog
@@ -82,6 +101,12 @@ const MyAlgorithms = () => {
         handleCloseDeleteDialog={handleCloseDeleteDialog}
         selectedAlgorithm={selectedAlgorithm}
         handleDeleteAlgorithm={handleDeleteAlgorithm}
+      />
+      <RenameDialog
+        openRenameDialog={openRenameDialog}
+        handleCloseRenameDialog={handleCloseRenameDialog}
+        selectedAlgorithm={selectedAlgorithm}
+        handleEditName={handleEditName}
       />
     </Grid>
   );

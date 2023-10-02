@@ -3,6 +3,7 @@ import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 
 interface DialogProps {
+  id: string;
   openDialog?: boolean;
   handleCloseDialog: () => void;
   dialogTitle: JSX.Element;
@@ -12,6 +13,7 @@ interface DialogProps {
 
 const DialogComponent = (props: DialogProps) => {
   const {
+    id,
     openDialog = true,
     handleCloseDialog = undefined,
     dialogTitle,
@@ -20,6 +22,7 @@ const DialogComponent = (props: DialogProps) => {
   } = props;
   return (
     <Dialog
+      id={id}
       fullWidth
       maxWidth="sm"
       open={openDialog}

@@ -59,6 +59,7 @@ const DeleteDialog = (props: DeleteDialogProps) => {
   );
   return (
     <DialogComponent
+      id="dialog-delete"
       openDialog={openDeleteDialog}
       handleCloseDialog={handleCloseDeleteDialog}
       dialogTitle={dialogTitle}
