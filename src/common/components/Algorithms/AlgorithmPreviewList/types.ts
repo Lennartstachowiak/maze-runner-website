@@ -11,6 +11,8 @@ export interface AlgorithmState {
 
 export interface AlgorithmListInterface extends AlgorithmState {
   title: string;
+  algorithmList: AlgorithmInterface[];
+  handelAddAlgorithm: () => Promise<void>;
 }
 
 type FlexWrap = "nowrap" | "wrap" | "wrap-reverse";

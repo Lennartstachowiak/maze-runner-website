@@ -2,18 +2,18 @@ import { Dialog, IconButton } from "@mui/material";
 import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 
-interface RegisterDialogProps {
-  openRegisterDialog?: boolean;
-  handleCloseRegisterDialog: () => void;
+interface DialogProps {
+  openDialog?: boolean;
+  handleCloseDialog: () => void;
   dialogTitle: JSX.Element;
   dialogContent: JSX.Element;
   dialogActions: JSX.Element;
 }
 
-const DialogComponent = (props: RegisterDialogProps) => {
+const DialogComponent = (props: DialogProps) => {
   const {
-    openRegisterDialog = true,
-    handleCloseRegisterDialog = undefined,
+    openDialog = true,
+    handleCloseDialog = undefined,
     dialogTitle,
     dialogContent,
     dialogActions,
@@ -22,15 +22,15 @@ const DialogComponent = (props: RegisterDialogProps) => {
     <Dialog
       fullWidth
       maxWidth="sm"
-      open={openRegisterDialog}
-      onClose={handleCloseRegisterDialog}
+      open={openDialog}
+      onClose={handleCloseDialog}
     >
       {dialogTitle}
       {dialogContent}
       {dialogActions}
       <IconButton
         aria-label="close"
-        onClick={handleCloseRegisterDialog}
+        onClick={handleCloseDialog}
         sx={{
           position: "absolute",
           right: 8,

@@ -89,7 +89,7 @@ export const getMazeAlgorithmSolution = async ({
 };
 
 export const useGetAlgorithms = () => {
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     [
       `${API_ENDPOINT}/v1/get_algorithms`,
       {
@@ -107,6 +107,7 @@ export const useGetAlgorithms = () => {
     algorithmList: data,
     isLoading: isLoading,
     isError: error,
+    mutate: mutate,
   };
 };
 
@@ -118,6 +119,27 @@ export const addNewAlgorithm = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteAlgorithm = async ({
+  algorithmId,
+}: {
+  algorithmId: string;
+}) => {
+  try {
+    await fetch(`${API_ENDPOINT}/v1/delete_algorithm`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        algorithmId: algorithmId,
+      }),
     });
   } catch (error) {
     console.error(error);

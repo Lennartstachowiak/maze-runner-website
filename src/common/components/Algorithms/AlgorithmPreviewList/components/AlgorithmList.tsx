@@ -1,31 +1,19 @@
-import { Button, CircularProgress, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import React from "react";
 import AlgorithmItem from "./AlgorithmItem";
-import { AlgorithmInterface, AlgorithmListDirections } from "../types";
-import { addNewAlgorithm, useGetAlgorithms } from "../../../../../modules/API";
+import { AlgorithmListDirections } from "../types";
 import Header from "../../../components/Header";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 
 const AlgorithmList = (props: AlgorithmListDirections) => {
-  const { title, selectedAlgorithm, setAlgorithm, flexWrap } = props;
   const {
+    title,
+    selectedAlgorithm,
+    setAlgorithm,
+    flexWrap,
     algorithmList,
-    isLoading,
-    isError,
-  }: {
-    algorithmList: AlgorithmInterface[];
-    isLoading: boolean;
-    isError: boolean;
-  } = useGetAlgorithms();
-  const handelAddAlgorithm = () => {
-    addNewAlgorithm();
-  };
-  if (isError) {
-    return <>ERROR</>;
-  }
-  if (isLoading) {
-    return <CircularProgress />;
-  }
+    handelAddAlgorithm,
+  } = props;
   return (
     <Grid container direction="column" wrap="nowrap" padding={3}>
       <Grid>

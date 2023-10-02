@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Grid, Typography, CircularProgress, Button } from "@mui/material";
-import React, { useEffect, useRef } from "react";
+import {
+  Grid,
+  Typography,
+  CircularProgress,
+  Button,
+  IconButton,
+} from "@mui/material";
+import React, { useEffect, useState, useRef } from "react";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Editor, { Monaco } from "@monaco-editor/react";
 import { editor } from "monaco-editor";
@@ -10,10 +16,14 @@ import {
   ConstrainedEditorInterface,
   constrainedEditor,
 } from "constrained-editor-plugin";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
 interface CodeBlockProps {
   showLineNumbers: boolean;
   algorithm: AlgorithmInterface | null;
+  handleOpenDeleteDialog: () => void;
+  handleEditName: (algorithmId: string) => Promise<void>;
 }
 
 const CodeBlockComponent = (props: CodeBlockProps) => {
@@ -21,14 +31,15 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
   const constrainedInstanceRef = useRef<ConstrainedEditorInterface | null>(
     null
   );
-  const { algorithm, showLineNumbers } = props;
+  const { algorithm, showLineNumbers, handleOpenDeleteDialog, handleEditName } =
+    props;
   const algorithmCode = algorithm?.code;
   const algorithmId = algorithm?.id;
   const headerName = algorithm?.name;
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(false);
-  const [code, codeText] = React.useState(algorithmCode);
-  const [editableCode, setEditableCode] = React.useState(algorithmCode);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [code, codeText] = useState(algorithmCode);
+  const [editableCode, setEditableCode] = useState(algorithmCode);
   if (code !== algorithmCode) {
     codeText(algorithmCode);
     setEditableCode(algorithmCode);
@@ -44,7 +55,11 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
 
   // Change value for editor
   useEffect(() => {
-    if (editorRef.current && code && constrainedInstanceRef.current) {
+    if (
+      editorRef.current?.getModel() &&
+      code &&
+      constrainedInstanceRef.current
+    ) {
       const model = editorRef.current.getModel()!;
       model.setValue(code || "");
       let lastEditableLineIndex = 3;
@@ -71,13 +86,11 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
     }
   }, [code]);
 
-  const restrictions: object[] = [];
-
   // Restrict area fields
-  function handleEditorDidMount(
+  const handleEditorDidMount = (
     editor: editor.IStandaloneCodeEditor,
     monaco: Monaco
-  ) {
+  ) => {
     editorRef.current = editor;
     const constrainedInstance = constrainedEditor(monaco);
     constrainedInstanceRef.current = constrainedInstance;
@@ -105,7 +118,8 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
     ];
 
     constrainedInstance.addRestrictionsTo(model, restrictions);
-  }
+  };
+
   return (
     <Grid
       container
@@ -128,9 +142,33 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
         <>
           <Grid container justifyContent="space-between">
             <Grid item>
-              <Typography variant="h3" color="initial" paddingBottom={2.5}>
-                {headerName}
-              </Typography>
+              <Grid container alignContent="center">
+                <Grid item>
+                  <Typography variant="h3" color="initial" paddingBottom={2.5}>
+                    {headerName}
+                  </Typography>
+                </Grid>
+                <Grid item paddingLeft={2}>
+                  <Grid container>
+                    <Grid item>
+                      <IconButton
+                        aria-label="editName"
+                        onClick={() => handleEditName(algorithmId!)}
+                      >
+                        <EditRoundedIcon sx={{ height: 20 }} />
+                      </IconButton>
+                    </Grid>
+                    <Grid item>
+                      <IconButton
+                        aria-label="deleteAlgorithm"
+                        onClick={handleOpenDeleteDialog}
+                      >
+                        <DeleteRoundedIcon sx={{ height: 20 }} />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item>
               <Button
