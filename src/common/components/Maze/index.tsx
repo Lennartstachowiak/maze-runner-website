@@ -5,6 +5,7 @@ import { Grid } from "@mui/material";
 import { MazeProps } from "../Homepage/components/MazePreviewWrapper";
 import {
   getMazeAlgorithmSolution,
+  useGetAlgorithms,
   useGetSingleMaze,
 } from "../../../modules/API";
 import LoadingDialog from "../components/LoadingDialog";
@@ -13,6 +14,7 @@ import Menu from "./Menu";
 import RegisterDialog from "../components/RegisterAndLogin";
 import { AlgorithmInterface } from "../Algorithms/AlgorithmPreviewList/types";
 import { AlgorithmListHorizontal } from "../Algorithms/AlgorithmPreviewList/AlgorithmPreviewBlock";
+import { CircularProgress } from "@mui/material";
 
 export type ScoreType = {
   steps: number;
@@ -45,10 +47,23 @@ const MazePreview = (componentProps: componentPropsInterface) => {
   const id = route.query.id as string;
   const {
     maze,
-    isLoading,
-    isError,
-  }: { maze: MazeProps; isLoading: boolean; isError: boolean } =
-    useGetSingleMaze(id);
+    isLoading: isMazeLoading,
+    isError: isMazeError,
+  }: {
+    maze: MazeProps;
+    isLoading: boolean;
+    isError: boolean;
+  } = useGetSingleMaze(id);
+
+  const {
+    algorithmList,
+    isLoading: isAlgorithmLoading,
+    isError: isAlgorithmError,
+  }: {
+    algorithmList: AlgorithmInterface[];
+    isLoading: boolean;
+    isError: boolean;
+  } = useGetAlgorithms();
 
   if (!user) {
     const handleCloseRegisterDialog = () => {
@@ -58,10 +73,10 @@ const MazePreview = (componentProps: componentPropsInterface) => {
       <RegisterDialog handleCloseRegisterDialog={handleCloseRegisterDialog} />
     );
   }
-  if (isLoading) {
-    return <LoadingDialog loading={isLoading} />;
+  if (isMazeLoading) {
+    return <LoadingDialog loading={isMazeLoading} />;
   }
-  if (isError) {
+  if (isMazeError) {
     return (
       <Typography variant="body1" color="initial">
         Error
@@ -85,13 +100,17 @@ const MazePreview = (componentProps: componentPropsInterface) => {
       score.current.visitedSteps = mazeSearchSolution.visited.length;
       score.current.score = mazeSearchSolution.score;
     };
+
     return (
       <Grid container spacing={3} paddingBottom={8}>
         <Grid item width="100%">
+          {isAlgorithmLoading && <CircularProgress />}
+          {isAlgorithmError && <>Error</>}
           <AlgorithmListHorizontal
             title="Select an algorithm"
             selectedAlgorithm={selectedAlgorithm}
             setAlgorithm={setAlgorithm}
+            algorithmList={algorithmList}
           />
         </Grid>
         <Grid item width="100%">

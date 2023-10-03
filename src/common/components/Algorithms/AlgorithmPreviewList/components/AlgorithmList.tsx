@@ -48,33 +48,35 @@ const AlgorithmList = (props: AlgorithmListDirections) => {
             />
           </Grid>
         ))}
-        <Grid
-          item
-          key="add-algorithm"
-          paddingLeft={2}
-          paddingBottom={flexWrap === "wrap" ? 2 : 0}
-        >
-          <Button
-            onClick={handelAddAlgorithm}
-            sx={{
-              height: "100%",
-              width: 200,
-              color: (theme) => theme.palette.primary.dark,
-              backgroundColor: (theme) => theme.palette.background.paper,
-              borderRadius: 7,
-            }}
+        {handelAddAlgorithm && (
+          <Grid
+            item
+            key="add-algorithm"
+            paddingLeft={2}
+            paddingBottom={flexWrap === "wrap" ? 2 : 0}
           >
-            <AddRoundedIcon sx={{ color: "grey.400" }} />
-            <Typography
-              variant="h5"
-              color="grey.400"
-              paddingY={1.5}
-              paddingLeft={0.3}
+            <Button
+              onClick={handelAddAlgorithm}
+              sx={{
+                height: "100%",
+                width: 200,
+                color: (theme) => theme.palette.primary.dark,
+                backgroundColor: (theme) => theme.palette.background.paper,
+                borderRadius: 7,
+              }}
             >
-              Add new algorithm
-            </Typography>
-          </Button>
-        </Grid>
+              <AddRoundedIcon sx={{ color: "grey.400" }} />
+              <Typography
+                variant="h5"
+                color="grey.400"
+                paddingY={1.5}
+                paddingLeft={0.3}
+              >
+                Add new algorithm
+              </Typography>
+            </Button>
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );
