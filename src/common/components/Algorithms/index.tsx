@@ -32,9 +32,13 @@ const MyAlgorithms = () => {
   } = useGetAlgorithms();
 
   useEffect(() => {
-    setAlgorithm(
-      algorithmList.find((algorithm) => algorithm.id === selectedAlgorithm?.id)!
-    );
+    if (algorithmList && selectedAlgorithm) {
+      setAlgorithm(
+        algorithmList.find(
+          (algorithm) => algorithm.id === selectedAlgorithm?.id
+        )!
+      );
+    }
   }, [algorithmList]);
 
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
