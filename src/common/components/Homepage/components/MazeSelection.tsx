@@ -23,7 +23,7 @@ const MazeSelection = (props: MazeSelectionProps) => {
         flexWrap="nowrap"
         overflow="auto"
       >
-        {mazes.map((maze) => (
+        {mazes?.map((maze) => (
           <Grid
             item
             key={maze.id}

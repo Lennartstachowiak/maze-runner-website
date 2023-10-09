@@ -2,12 +2,11 @@ version: "3"
 
 services:
   web:
-    image: node:lts-alpine
-    working_dir: /app
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     volumes:
       - .:/app
-    env_file:
-      - .env.dev
-    command: sh -c "yarn install && yarn dev"
+      - /app/node_modules
