@@ -1,11 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-  Grid,
-  Typography,
-  CircularProgress,
-  Button,
-  IconButton,
-} from "@mui/material";
+import { Grid, Typography, CircularProgress, IconButton } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Editor, { Monaco } from "@monaco-editor/react";
@@ -24,6 +18,8 @@ interface CodeBlockProps {
   algorithm: AlgorithmInterface | null;
   handleOpenDeleteDialog: () => void;
   handleOpenRenameDialog: () => void;
+  ActionButtonComponent: () => React.JSX.Element;
+  editable: boolean;
 }
 
 const CodeBlockComponent = (props: CodeBlockProps) => {
@@ -36,6 +32,8 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
     showLineNumbers,
     handleOpenDeleteDialog,
     handleOpenRenameDialog,
+    ActionButtonComponent,
+    editable,
   } = props;
   const algorithmCode = algorithm?.code;
   const algorithmId = algorithm?.id;
@@ -68,9 +66,9 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
       model.setValue(code || "");
       let lastEditableLineIndex = 3;
       let lastEditableLineLength = 1;
+      const codeLinesSplit = code.split("\n");
+      const codeLines = codeLinesSplit.length;
       try {
-        const codeLinesSplit = code.split("\n");
-        const codeLines = codeLinesSplit.length;
         lastEditableLineIndex = codeLines - 6;
         lastEditableLineLength =
           codeLinesSplit[lastEditableLineIndex - 1].length + 1;
@@ -78,13 +76,22 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
         console.error(error);
       }
 
-      const restrictions = [
+      const restrictionsEditable = [
         {
           range: [6, 1, lastEditableLineIndex, lastEditableLineLength],
-          label: "funcDefinition",
+          label: "editable",
           allowMultiline: true,
         },
       ];
+
+      const restrictionsView = [
+        {
+          range: [codeLines, 1, codeLines, 1],
+          label: "view",
+        },
+      ];
+
+      const restrictions = editable ? restrictionsEditable : restrictionsView;
       constrainedInstanceRef.current.removeRestrictionsIn(model);
       constrainedInstanceRef.current.addRestrictionsTo(model, restrictions);
     }
@@ -102,10 +109,11 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
     constrainedInstance.initializeIn(editor);
     let lastEditableLineIndex = 3;
     let lastEditableLineLength = 1;
+    let codeLines = 1;
     if (code) {
+      const codeLinesSplit = code.split("\n");
+      codeLines = codeLinesSplit.length;
       try {
-        const codeLinesSplit = code.split("\n");
-        const codeLines = codeLinesSplit.length;
         lastEditableLineIndex = codeLines - 6;
         lastEditableLineLength =
           codeLinesSplit[lastEditableLineIndex - 1].length + 1;
@@ -113,13 +121,21 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
         console.error(error);
       }
     }
-    const restrictions = [
+    const restrictionsEditable = [
       {
         range: [6, 1, lastEditableLineIndex, lastEditableLineLength],
-        label: "funcDefinition",
-        allowMultiline: true,
+        label: "editable",
       },
     ];
+
+    const restrictionsView = [
+      {
+        range: [codeLines, 1, codeLines, 1],
+        label: "view",
+      },
+    ];
+
+    const restrictions = editable ? restrictionsEditable : restrictionsView;
 
     constrainedInstance.addRestrictionsTo(model, restrictions);
   };
@@ -175,15 +191,7 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
               </Grid>
             </Grid>
             <Grid item>
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={handleSaveChanges}
-              >
-                <Typography variant="h5" color="secondary">
-                  Save Changes
-                </Typography>
-              </Button>
+              <ActionButtonComponent />
             </Grid>
           </Grid>
           <Grid

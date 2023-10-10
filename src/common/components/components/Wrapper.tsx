@@ -17,6 +17,7 @@ import LoginStatus from "./LoginStatus";
 import RegisterDialogButton from "./RegisterDialogButton";
 import UserInterface from "../../types/user";
 import { handleLogout } from "../../../modules/auth/api/AuthAPI";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 interface HeaderProps {
   user: UserInterface | null;
@@ -164,10 +165,29 @@ interface WrapperProps {
 
 const Wrapper = (props: WrapperProps) => {
   const { children, user } = props;
+  const router = useRouter();
+  const isRootPath = router.pathname === "/";
   return (
     <div>
       <Header user={user} />
       <Container maxWidth="lg">
+        {!isRootPath && (
+          <IconButton
+            aria-label="back"
+            onClick={() => router.back()}
+            size="large"
+            sx={{
+              position: "absolute",
+              left: 110,
+              top: 90,
+              backgroundColor: (theme) => theme.palette.background.paper,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+        )}
+
         {children}
         <Footer />
       </Container>

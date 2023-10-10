@@ -1,46 +1,34 @@
-import { useEffect, useState } from "react";
 import React from "react";
-import { AlgorithmListVertical } from "./AlgorithmPreviewList/AlgorithmPreviewBlock";
-import { AlgorithmInterface } from "./AlgorithmPreviewList/types";
+import { AlgorithmInterface } from "../AlgorithmPreviewList/types";
 import Grid from "@mui/material/Grid";
-import CodeBlockComponent from "./AlgorithmCodeBlock.tsx";
+import CodeBlockComponent from "../AlgorithmCodeBlock.tsx";
 import {
-  addNewAlgorithm,
   deleteAlgorithm,
   renameAlgorithm,
-  useGetAlgorithms,
-} from "../../../modules/API";
+  saveAlgorithmChanges,
+  useGetSingleAlgorithm,
+} from "../../../../modules/API";
 import { KeyedMutator } from "swr";
 import { Button, CircularProgress, Typography } from "@mui/material";
-import DeleteDialog from "./components/DeleteDialog";
-import RenameDialog from "./components/RenameDialog";
+import DeleteDialog from "../components/DeleteDialog";
+import RenameDialog from "../components/RenameDialog";
 import { useRouter } from "next/router";
 
-const MyAlgorithms = () => {
-  const [selectedAlgorithm, setAlgorithm] = useState<AlgorithmInterface | null>(
-    null
-  );
+const EditPage = () => {
+  const router = useRouter();
+  const algorithm_id = router.query.id as string;
   const {
-    algorithmList,
+    algorithm,
     isLoading,
     isError,
     mutate,
   }: {
-    algorithmList: AlgorithmInterface[];
+    algorithm: AlgorithmInterface;
     isLoading: boolean;
     isError: boolean;
     mutate: KeyedMutator<unknown>;
-  } = useGetAlgorithms();
-
-  useEffect(() => {
-    if (algorithmList && selectedAlgorithm) {
-      setAlgorithm(
-        algorithmList.find(
-          (algorithm) => algorithm.id === selectedAlgorithm?.id
-        )!
-      );
-    }
-  }, [algorithmList]);
+  } = useGetSingleAlgorithm(algorithm_id);
+  console.log(algorithm);
 
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
   const handleOpenDeleteDialog = () => {
@@ -58,10 +46,6 @@ const MyAlgorithms = () => {
     setOpenRenameDialog(false);
   };
 
-  const handelAddAlgorithm = async () => {
-    await addNewAlgorithm();
-    await mutate();
-  };
   const handleEditName = async (algorithmId: string, newName: string) => {
     if (algorithmId) {
       await renameAlgorithm({ algorithmId: algorithmId, newName: newName });
@@ -71,7 +55,7 @@ const MyAlgorithms = () => {
   const handleDeleteAlgorithm = async (algorithmId: string) => {
     if (algorithmId) {
       await deleteAlgorithm({ algorithmId: algorithmId });
-      setAlgorithm(null);
+      router.back();
       await mutate();
     }
   };
@@ -82,17 +66,21 @@ const MyAlgorithms = () => {
   if (isLoading) {
     return <CircularProgress />;
   }
-  const GoToEditActionButton = () => {
-    const router = useRouter();
-    const algorithmId = selectedAlgorithm?.id;
+  const ActionButton = () => {
+    const editableCode = algorithm?.code;
+    const algorithmId = algorithm?.id;
+    const handleSaveChanges = async () => {
+      if (editableCode && algorithmId) {
+        await saveAlgorithmChanges({
+          algorithmId: algorithmId,
+          newCode: editableCode,
+        });
+      }
+    };
     return (
-      <Button
-        variant="outlined"
-        color="secondary"
-        onClick={() => router.push(`/my_algorithms/${algorithmId}`)}
-      >
+      <Button variant="outlined" color="secondary" onClick={handleSaveChanges}>
         <Typography variant="h5" color="secondary">
-          Edit Algorithm
+          Save Changes
         </Typography>
       </Button>
     );
@@ -100,39 +88,31 @@ const MyAlgorithms = () => {
 
   return (
     <Grid container>
-      <Grid item xs={3}>
-        <AlgorithmListVertical
-          title="My Algorithms"
-          selectedAlgorithm={selectedAlgorithm}
-          setAlgorithm={setAlgorithm}
-          algorithmList={algorithmList}
-          handelAddAlgorithm={handelAddAlgorithm}
-        />
-      </Grid>
-      <Grid item xs={9}>
+      <Grid item>
         <CodeBlockComponent
-          algorithm={selectedAlgorithm}
+          algorithm={algorithm}
           showLineNumbers={true}
           handleOpenDeleteDialog={handleOpenDeleteDialog}
           handleOpenRenameDialog={handleOpenRenameDialog}
-          ActionButtonComponent={GoToEditActionButton}
-          editable={false}
+          ActionButtonComponent={ActionButton}
+          editable={true}
         />
       </Grid>
+
       <DeleteDialog
         openDeleteDialog={openDeleteDialog}
         handleCloseDeleteDialog={handleCloseDeleteDialog}
-        selectedAlgorithm={selectedAlgorithm}
+        selectedAlgorithm={algorithm}
         handleDeleteAlgorithm={handleDeleteAlgorithm}
       />
       <RenameDialog
         openRenameDialog={openRenameDialog}
         handleCloseRenameDialog={handleCloseRenameDialog}
-        selectedAlgorithm={selectedAlgorithm}
+        selectedAlgorithm={algorithm}
         handleEditName={handleEditName}
       />
     </Grid>
   );
 };
 
-export default MyAlgorithms;
+export default EditPage;

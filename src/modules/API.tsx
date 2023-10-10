@@ -111,6 +111,30 @@ export const useGetAlgorithms = () => {
   };
 };
 
+export const useGetSingleAlgorithm = (id: string | undefined) => {
+  const { data, error, isLoading, mutate } = useSWR(
+    id
+      ? [
+          `${API_ENDPOINT}/v1/get_single_algorithm?id=${id}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+          },
+        ]
+      : null,
+    fetcher
+  );
+
+  const algorithm = data;
+  return {
+    algorithm: algorithm,
+    isLoading,
+    isError: error,
+    mutate: mutate,
+  };
+};
+
 export const addNewAlgorithm = async () => {
   try {
     await fetch(`${API_ENDPOINT}/v1/add_new_algorithm`, {
