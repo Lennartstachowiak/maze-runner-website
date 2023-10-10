@@ -11,19 +11,16 @@ interface Cell {
   goal: boolean;
 }
 
-export interface Maze {
-  vector_list: Cell[][];
-}
-
 type SolutionObject = [number, number];
 
 interface MazeComponentProps {
-  maze: Maze;
+  mazeStructure: Cell[][];
   mazeSolution: MazeSolution | null;
+  size?: number;
 }
 
 const GameComponent = (props: MazeComponentProps) => {
-  const { maze, mazeSolution } = props;
+  const { mazeStructure, mazeSolution, size = 400 } = props;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -41,10 +38,10 @@ const GameComponent = (props: MazeComponentProps) => {
       const LIGHTBLUE = "#ccccff";
       const BLUE = "#0000ff";
 
-      const currentMaze = maze.vector_list;
+      const currentMaze = mazeStructure;
       const currentSolution = mazeSolution?.solution;
       const currentSearchPath = mazeSolution?.visited;
-      const windowSize = 400;
+      const windowSize = size;
       const cellSize = windowSize / currentMaze.length;
       const halfCellSize = cellSize / 2;
       const lineThickness = cellSize / 12;
@@ -177,7 +174,7 @@ const GameComponent = (props: MazeComponentProps) => {
     drawMaze();
   }, [mazeSolution]);
 
-  return <canvas ref={canvasRef} width={400} height={400} />;
+  return <canvas ref={canvasRef} width={size} height={size} />;
 };
 
 export default GameComponent;

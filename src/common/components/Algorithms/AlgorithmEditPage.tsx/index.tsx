@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import CodeBlockComponent from "../AlgorithmCodeBlock.tsx";
 import {
   deleteAlgorithm,
+  getMazeAlgorithmSolution,
   renameAlgorithm,
   saveAlgorithmChanges,
   useGetSingleAlgorithm,
@@ -13,6 +14,8 @@ import { Button, CircularProgress, Typography } from "@mui/material";
 import DeleteDialog from "../components/DeleteDialog";
 import RenameDialog from "../components/RenameDialog";
 import { useRouter } from "next/router";
+import { MazeSolution } from "../../Maze";
+import InfoBlock from "../InfoBlock.tsx";
 
 const EditPage = () => {
   const router = useRouter();
@@ -28,7 +31,9 @@ const EditPage = () => {
     isError: boolean;
     mutate: KeyedMutator<unknown>;
   } = useGetSingleAlgorithm(algorithm_id);
-  console.log(algorithm);
+
+  const [testMazeSolution, setTestMazeSolution] =
+    React.useState<MazeSolution | null>(null);
 
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
   const handleOpenDeleteDialog = () => {
@@ -66,8 +71,12 @@ const EditPage = () => {
   if (isLoading) {
     return <CircularProgress />;
   }
-  const ActionButton = () => {
-    const editableCode = algorithm?.code;
+
+  interface ActionButtonProps {
+    editableCode: string;
+  }
+  const ActionButton = (props: ActionButtonProps) => {
+    const { editableCode } = props;
     const algorithmId = algorithm?.id;
     const handleSaveChanges = async () => {
       if (editableCode && algorithmId) {
@@ -77,18 +86,27 @@ const EditPage = () => {
         });
       }
     };
+    const handleTestMaze = async () => {
+      await handleSaveChanges();
+      const mazeSearchSolution: MazeSolution = await getMazeAlgorithmSolution({
+        algorithmId: algorithm_id,
+        mazeId: "100",
+      });
+      setTestMazeSolution(mazeSearchSolution);
+    };
+
     return (
-      <Button variant="outlined" color="secondary" onClick={handleSaveChanges}>
+      <Button variant="outlined" color="secondary" onClick={handleTestMaze}>
         <Typography variant="h5" color="secondary">
-          Save Changes
+          Test and save code
         </Typography>
       </Button>
     );
   };
 
   return (
-    <Grid container>
-      <Grid item>
+    <Grid container direction="row">
+      <Grid item xs={8}>
         <CodeBlockComponent
           algorithm={algorithm}
           showLineNumbers={true}
@@ -98,7 +116,9 @@ const EditPage = () => {
           editable={true}
         />
       </Grid>
-
+      <Grid item xs={4}>
+        <InfoBlock mazeSolution={testMazeSolution} />
+      </Grid>
       <DeleteDialog
         openDeleteDialog={openDeleteDialog}
         handleCloseDeleteDialog={handleCloseDeleteDialog}

@@ -2,9 +2,11 @@ export interface AlgorithmInterface {
   id: string;
   name: string;
   code?: string;
+  isWorking?: boolean;
 }
 
 export interface AlgorithmState {
+  disabled?: boolean;
   selectedAlgorithm: AlgorithmInterface | null;
   setAlgorithm: React.Dispatch<React.SetStateAction<AlgorithmInterface | null>>;
 }
@@ -15,8 +17,6 @@ export interface AlgorithmListInterface extends AlgorithmState {
   handelAddAlgorithm?: () => Promise<void>;
 }
 
-type FlexWrap = "nowrap" | "wrap" | "wrap-reverse";
-
 export interface AlgorithmListDirections extends AlgorithmListInterface {
-  flexWrap: FlexWrap;
+  isVertical: boolean;
 }

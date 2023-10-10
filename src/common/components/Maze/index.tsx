@@ -26,6 +26,7 @@ export type MazeSolution = {
   solution: [];
   visited: [];
   score: number;
+  error: string;
 };
 
 interface UserProps {
@@ -40,7 +41,7 @@ const MazePreview = (componentProps: componentPropsInterface) => {
   const { user } = componentProps;
   const route = useRouter();
   const score = useRef<ScoreType>({ steps: 0, visitedSteps: 0, score: 0 });
-  const [mazeSolution, setMazeSoltion] = useState<MazeSolution | null>(null);
+  const [mazeSolution, setMazeSolution] = useState<MazeSolution | null>(null);
   const [selectedAlgorithm, setAlgorithm] = useState<AlgorithmInterface | null>(
     null
   );
@@ -95,7 +96,7 @@ const MazePreview = (componentProps: componentPropsInterface) => {
         algorithmId: selectedAlgorithm?.id,
         mazeId: maze?.id,
       });
-      setMazeSoltion(mazeSearchSolution);
+      setMazeSolution(mazeSearchSolution);
       score.current.steps = mazeSearchSolution.solution.length;
       score.current.visitedSteps = mazeSearchSolution.visited.length;
       score.current.score = mazeSearchSolution.score;

@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import React from "react";
 import MazeDescription from "./components/MazeDescription";
 import MazeHighscore from "./components/MazeHighscore";
-import GameComponent, { Maze } from "./components/MazeRender";
+import GameComponent from "./components/MazeRender";
 import { MazeSolution } from "..";
 interface MazePreviewBlockComponentProps {
   name: string;
@@ -16,9 +16,6 @@ interface MazePreviewBlockComponentProps {
 const MazePreviewBlock = (props: MazePreviewBlockComponentProps) => {
   const { name, difficulty, highscores, imgLink, mazeStructure, mazeSolution } =
     props;
-  const maze: Maze = {
-    vector_list: mazeStructure,
-  };
   return (
     <Grid
       container
@@ -37,7 +34,10 @@ const MazePreviewBlock = (props: MazePreviewBlockComponentProps) => {
       <Grid item xs={1} />
       <Grid item xs={7} padding={2}>
         {mazeStructure && mazeSolution ? (
-          <GameComponent maze={maze} mazeSolution={mazeSolution} />
+          <GameComponent
+            mazeStructure={mazeStructure}
+            mazeSolution={mazeSolution}
+          />
         ) : (
           <img
             width="100%"

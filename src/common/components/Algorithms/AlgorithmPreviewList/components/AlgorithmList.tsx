@@ -10,7 +10,7 @@ const AlgorithmList = (props: AlgorithmListDirections) => {
     title,
     selectedAlgorithm,
     setAlgorithm,
-    flexWrap,
+    isVertical,
     algorithmList,
     handelAddAlgorithm,
   } = props;
@@ -24,36 +24,40 @@ const AlgorithmList = (props: AlgorithmListDirections) => {
         direction="row"
         paddingY={2}
         marginLeft={0}
-        flexWrap={flexWrap}
+        flexWrap={isVertical ? "wrap" : "nowrap"}
         overflow="auto"
       >
-        {algorithmList?.map((algorithm) => (
-          <Grid
-            item
-            key={algorithm.id}
-            paddingLeft={2}
-            paddingBottom={flexWrap === "wrap" ? 2 : 0}
-            sx={{
-              transform: `scale(${
-                algorithm.id === selectedAlgorithm?.id ? 1.05 : 1
-              })`,
-            }}
-          >
-            <AlgorithmItem
-              id={algorithm.id}
-              name={algorithm.name}
-              code={algorithm.code}
-              setAlgorithm={setAlgorithm}
-              selectedAlgorithm={selectedAlgorithm}
-            />
-          </Grid>
-        ))}
+        {algorithmList?.map((algorithm) => {
+          const disabled = !isVertical && !algorithm.isWorking;
+          return (
+            <Grid
+              item
+              key={algorithm.id}
+              paddingLeft={2}
+              paddingBottom={isVertical ? 2 : 0}
+              sx={{
+                transform: `scale(${
+                  algorithm.id === selectedAlgorithm?.id ? 1.05 : 1
+                })`,
+              }}
+            >
+              <AlgorithmItem
+                id={algorithm.id}
+                disabled={disabled}
+                name={algorithm.name}
+                code={algorithm.code}
+                setAlgorithm={setAlgorithm}
+                selectedAlgorithm={selectedAlgorithm}
+              />
+            </Grid>
+          );
+        })}
         {handelAddAlgorithm && (
           <Grid
             item
             key="add-algorithm"
             paddingLeft={2}
-            paddingBottom={flexWrap === "wrap" ? 2 : 0}
+            paddingBottom={isVertical ? 2 : 0}
           >
             <Button
               onClick={handelAddAlgorithm}

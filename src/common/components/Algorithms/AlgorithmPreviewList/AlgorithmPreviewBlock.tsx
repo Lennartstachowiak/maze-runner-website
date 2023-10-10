@@ -13,7 +13,7 @@ const AlgorithmListVertical = (props: AlgorithmListInterface) => {
   return (
     <AlgorithmList
       title={title}
-      flexWrap="wrap"
+      isVertical={true}
       selectedAlgorithm={selectedAlgorithm}
       setAlgorithm={setAlgorithm}
       algorithmList={algorithmList}
@@ -27,7 +27,7 @@ const AlgorithmListHorizontal = (props: AlgorithmListInterface) => {
   return (
     <AlgorithmList
       title={title}
-      flexWrap="nowrap"
+      isVertical={false}
       selectedAlgorithm={selectedAlgorithm}
       setAlgorithm={setAlgorithm}
       algorithmList={algorithmList}

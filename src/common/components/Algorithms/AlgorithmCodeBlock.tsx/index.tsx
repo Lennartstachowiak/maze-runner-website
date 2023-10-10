@@ -18,7 +18,8 @@ interface CodeBlockProps {
   algorithm: AlgorithmInterface | null;
   handleOpenDeleteDialog: () => void;
   handleOpenRenameDialog: () => void;
-  ActionButtonComponent: () => React.JSX.Element;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ActionButtonComponent: (...args: any) => React.JSX.Element;
   editable: boolean;
 }
 
@@ -36,7 +37,6 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
     editable,
   } = props;
   const algorithmCode = algorithm?.code;
-  const algorithmId = algorithm?.id;
   const headerName = algorithm?.name;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -46,14 +46,6 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
     codeText(algorithmCode);
     setEditableCode(algorithmCode);
   }
-  const handleSaveChanges = async () => {
-    if (editableCode && algorithmId) {
-      await saveAlgorithmChanges({
-        algorithmId: algorithmId,
-        newCode: editableCode,
-      });
-    }
-  };
 
   // Change value for editor
   useEffect(() => {
@@ -191,7 +183,7 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
               </Grid>
             </Grid>
             <Grid item>
-              <ActionButtonComponent />
+              <ActionButtonComponent editableCode={editableCode} />
             </Grid>
           </Grid>
           <Grid
