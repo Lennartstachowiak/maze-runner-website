@@ -170,25 +170,28 @@ const Wrapper = (props: WrapperProps) => {
   return (
     <div>
       <Header user={user} />
-      <Container maxWidth="lg">
-        {!isRootPath && (
-          <IconButton
-            aria-label="back"
-            onClick={() => router.back()}
-            size="large"
-            sx={{
-              position: "absolute",
-              left: 110,
-              top: 90,
-              backgroundColor: (theme) => theme.palette.background.paper,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <ArrowBackIcon />
-          </IconButton>
-        )}
+      <Container>
+        <Grid container direction="row">
+          {!isRootPath && (
+            <Grid item xs={0.7}>
+              <IconButton
+                aria-label="back"
+                onClick={() => router.back()}
+                size="large"
+                sx={{
+                  backgroundColor: (theme) => theme.palette.background.paper,
+                  color: (theme) => theme.palette.grey[500],
+                }}
+              >
+                <ArrowBackIcon />
+              </IconButton>
+            </Grid>
+          )}
+          <Grid item xs={!isRootPath ? 11.3 : 12}>
+            {children}
+          </Grid>
+        </Grid>
 
-        {children}
         <Footer />
       </Container>
     </div>
