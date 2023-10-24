@@ -1,9 +1,9 @@
 import React from "react";
-import InfoBlock from "../Maze/InfoBlock.tsx";
-import { MazeProps } from "../Homepage/components/MazePreviewWrapper.jsx";
+import InfoBlock from "../Maze/InfoBlock/index";
+import { MazeProps } from "../Homepage/components/MazePreviewWrapper";
 import { CircularProgress, Grid, Typography } from "@mui/material";
 import { useGetSingleMaze } from "../../../modules/API";
-import MazeStructure from "../Maze/InfoBlock.tsx/MazeStructure";
+import MazeStructure from "../Maze/InfoBlock/MazeStructure";
 import Header from "../components/Header";
 
 const OverviewPage = () => {

@@ -15,7 +15,7 @@ import DeleteDialog from "../components/DeleteDialog";
 import RenameDialog from "../components/RenameDialog";
 import { useRouter } from "next/router";
 import { MazeSolution } from "../../Maze";
-import InfoBlock from "../../Maze/InfoBlock.tsx";
+import InfoBlock from "../../Maze/InfoBlock";
 
 const EditPage = () => {
   const router = useRouter();

@@ -41,6 +41,14 @@ const DrawerMenu = (props: DrawerMenuProps) => {
       console.error(error);
     }
   };
+  const handleGoToGenerateOwnMaze = () => {
+    try {
+      router.push("my_mazes");
+      handleDrawerClick();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <Drawer anchor={"right"} open={drawerState} onClose={handleDrawerClick}>
       <IconButton
@@ -71,6 +79,15 @@ const DrawerMenu = (props: DrawerMenuProps) => {
         <Grid item>
           <Button variant="text" color="primary" onClick={handleGoToAlgorithm}>
             <Typography variant="body1">My Algorithms</Typography>
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            variant="text"
+            color="primary"
+            onClick={handleGoToGenerateOwnMaze}
+          >
+            <Typography variant="body1">My Mazes</Typography>
           </Button>
         </Grid>
         <Grid item>
