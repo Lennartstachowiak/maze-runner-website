@@ -36,6 +36,7 @@ const Homepage = () => {
           mazes={mazes}
           selectedMaze={selectedMaze}
           setMaze={setMaze}
+          title="Select a maze"
         />
       </Grid>
       {selectedMaze && (

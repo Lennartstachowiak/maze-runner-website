@@ -33,6 +33,28 @@ export const useGetMazes = () => {
   };
 };
 
+export const useGetMyMazes = () => {
+  const { data, error, isLoading } = useSWR(
+    [
+      `${API_ENDPOINT}/v1/get_my_mazes`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    ],
+    fetcher
+  );
+
+  return {
+    mazes: data,
+    isLoading,
+    isError: error,
+  };
+};
+
 export const useGetSingleMaze = (id: string | undefined) => {
   const { data, error, isLoading } = useSWR(
     id
@@ -212,6 +234,27 @@ export const saveAlgorithmChanges = async ({
         algorithmId: algorithmId,
         newCode: newCode,
       }),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const generateNewAlgorithm = async ({
+  mazeName,
+  mazeSize,
+}: {
+  mazeName: string;
+  mazeSize: number;
+}) => {
+  try {
+    const res = await fetch(`${API_ENDPOINT}/v1/generate_maze`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mazeName: mazeName, mazeSize: mazeSize }),
     });
     const data = await res.json();
     return data;
