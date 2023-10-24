@@ -1,23 +1,14 @@
-import CloseIcon from "@mui/icons-material/Close";
-import {
-  Avatar,
-  Box,
-  Drawer,
-  Grid,
-  IconButton,
-  Container,
-} from "@mui/material";
+import { Avatar, Box, Grid, IconButton, Container } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import React from "react";
-import LoginStatus from "./LoginStatus";
 import RegisterDialogButton from "./RegisterDialogButton";
 import UserInterface from "../../types/user";
-import { handleLogout } from "../../../modules/auth/api/AuthAPI";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DrawerMenu from "./DrawerMenu";
 
 interface HeaderProps {
   user: UserInterface | null;
@@ -27,23 +18,6 @@ const Header = (props: HeaderProps) => {
   const { user } = props;
   const router = useRouter();
   // const pathname = router.pathname;
-
-  const handleClickLogout = () => {
-    try {
-      handleLogout();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleGoToAlgorithm = () => {
-    try {
-      router.push("/my_algorithms");
-      handleDrawerClick();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const [drawerState, setDrawerState] = React.useState(false);
 
@@ -92,59 +66,11 @@ const Header = (props: HeaderProps) => {
             ) : (
               <RegisterDialogButton />
             )}
-            <Drawer
-              anchor={"right"}
-              open={drawerState}
-              onClose={handleDrawerClick}
-            >
-              <IconButton
-                aria-label="close"
-                onClick={handleDrawerClick}
-                sx={{
-                  position: "absolute",
-                  right: 8,
-                  top: 8,
-                  color: (theme) => theme.palette.grey[500],
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
-              <Grid
-                container
-                direction="column"
-                sx={{
-                  padding: 4,
-                  minHeight: "85%",
-                }}
-              >
-                <Grid item>
-                  <Button
-                    variant="text"
-                    color="primary"
-                    onClick={handleClickLogout}
-                  >
-                    <Typography variant="body1">Logout</Typography>
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button
-                    variant="text"
-                    color="primary"
-                    onClick={handleGoToAlgorithm}
-                  >
-                    <Typography variant="body1">My Algorithms</Typography>
-                  </Button>
-                </Grid>
-              </Grid>
-              <Box
-                sx={{
-                  paddingX: 4,
-                  minHeight: "15%",
-                }}
-              >
-                <LoginStatus user={user} />
-              </Box>
-            </Drawer>
+            <DrawerMenu
+              drawerState={drawerState}
+              handleDrawerClick={handleDrawerClick}
+              user={user}
+            />
           </Box>
         </Toolbar>
       </AppBar>
