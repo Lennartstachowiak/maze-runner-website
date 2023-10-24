@@ -15,7 +15,7 @@ import DeleteDialog from "../components/DeleteDialog";
 import RenameDialog from "../components/RenameDialog";
 import { useRouter } from "next/router";
 import { MazeSolution } from "../../Maze";
-import InfoBlock from "../InfoBlock.tsx";
+import InfoBlock from "../../Maze/InfoBlock.tsx";
 
 const EditPage = () => {
   const router = useRouter();
@@ -105,7 +105,7 @@ const EditPage = () => {
   };
 
   return (
-    <Grid container direction="row">
+    <Grid container direction="row" spacing={5}>
       <Grid item xs={8}>
         <CodeBlockComponent
           algorithm={algorithm}

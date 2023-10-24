@@ -20,7 +20,7 @@ const DrawerMenu = (props: DrawerMenuProps) => {
     try {
       handleLogout();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -29,7 +29,16 @@ const DrawerMenu = (props: DrawerMenuProps) => {
       router.push("/my_algorithms");
       handleDrawerClick();
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    }
+  };
+
+  const handleGoToOverview = () => {
+    try {
+      router.push("/overview");
+      handleDrawerClick();
+    } catch (error) {
+      console.error(error);
     }
   };
   return (
@@ -62,6 +71,11 @@ const DrawerMenu = (props: DrawerMenuProps) => {
         <Grid item>
           <Button variant="text" color="primary" onClick={handleGoToAlgorithm}>
             <Typography variant="body1">My Algorithms</Typography>
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="text" color="primary" onClick={handleGoToOverview}>
+            <Typography variant="body1">Rules / Overview</Typography>
           </Button>
         </Grid>
       </Grid>
