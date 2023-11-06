@@ -45,7 +45,7 @@ const Homepage = () => {
           <MazePreviewCard {...selectedMaze} />
         </Grid>
       )}
-      {myMazes && (
+      {myMazes?.length > 0 && (
         <Grid item sx={{ width: "100%" }}>
           <MazeSelection
             mazes={myMazes}
