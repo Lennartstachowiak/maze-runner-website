@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import MazeSelection from "./components/MazeSelection";
 import { MazePreviewCard } from "./components/MazePreviewWrapper";
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetMazes, useGetMyMazes } from "../../../modules/API";
 import { MazeProps } from "../../types/maze";
 
@@ -13,6 +13,12 @@ const Homepage = () => {
     isError: myMazesError,
   } = useGetMyMazes();
   const [selectedMaze, setMaze] = React.useState<MazeProps | null>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (cardRef.current) {
+      cardRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [selectedMaze]);
   return (
     <Grid
       container
@@ -35,7 +41,7 @@ const Homepage = () => {
         />
       </Grid>
       {selectedMaze?.official && (
-        <Grid item sx={{ width: "100%" }}>
+        <Grid ref={cardRef} item sx={{ width: "100%" }}>
           <MazePreviewCard {...selectedMaze} />
         </Grid>
       )}
@@ -52,7 +58,7 @@ const Homepage = () => {
         </Grid>
       )}
       {selectedMaze?.official === false && (
-        <Grid item sx={{ width: "100%" }}>
+        <Grid ref={cardRef} item sx={{ width: "100%" }}>
           <MazePreviewCard {...selectedMaze} />
         </Grid>
       )}
