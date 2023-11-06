@@ -1,4 +1,5 @@
-import useSWR from "swr";
+import { includes } from "lodash";
+import useSWR, { KeyedMutator } from "swr";
 
 // Tuple type
 type FetchProps = [input: RequestInfo | URL, init?: RequestInit | undefined];
@@ -34,7 +35,7 @@ export const useGetMazes = () => {
 };
 
 export const useGetMyMazes = () => {
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     [
       `${API_ENDPOINT}/v1/get_my_mazes`,
       {
@@ -52,6 +53,7 @@ export const useGetMyMazes = () => {
     mazes: data,
     isLoading,
     isError: error,
+    mutate: mutate,
   };
 };
 
@@ -242,7 +244,7 @@ export const saveAlgorithmChanges = async ({
   }
 };
 
-export const generateNewAlgorithm = async ({
+export const generateNewMaze = async ({
   mazeName,
   mazeSize,
 }: {
@@ -255,6 +257,21 @@ export const generateNewAlgorithm = async ({
       credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ mazeName: mazeName, mazeSize: mazeSize }),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteMaze = async (mazeId: string) => {
+  try {
+    const res = await fetch(`${API_ENDPOINT}/v1/delete_maze`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mazeId: mazeId }),
     });
     const data = await res.json();
     return data;

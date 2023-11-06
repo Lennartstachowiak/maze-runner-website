@@ -20,6 +20,7 @@ const MazeItem = (props: MazeItem) => {
             ? theme.palette.secondary.light
             : theme.palette.background.paper,
         borderRadius: 7,
+        width: 280,
       }}
     >
       <Grid item padding={1}>
