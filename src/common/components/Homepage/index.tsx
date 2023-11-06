@@ -1,25 +1,18 @@
 import Grid from "@mui/material/Grid";
 import MazeSelection from "./components/MazeSelection";
-import { MazePreviewCard, MazeProps } from "./components/MazePreviewWrapper";
+import { MazePreviewCard } from "./components/MazePreviewWrapper";
 import React from "react";
-
-import LoadingDialog from "../components/LoadingDialog";
-import Typography from "@mui/material/Typography";
-import { useGetMazes } from "../../../modules/API";
+import { useGetMazes, useGetMyMazes } from "../../../modules/API";
+import { MazeProps } from "../../types/maze";
 
 const Homepage = () => {
   const { mazes, isLoading, isError } = useGetMazes();
+  const {
+    mazes: myMazes,
+    isLoading: myMazesLoading,
+    isError: myMazesError,
+  } = useGetMyMazes();
   const [selectedMaze, setMaze] = React.useState<MazeProps | null>(null);
-  if (isLoading) {
-    return <LoadingDialog loading={isLoading} />;
-  }
-  if (isError) {
-    return (
-      <Typography variant="body1" color="initial">
-        Error
-      </Typography>
-    );
-  }
   return (
     <Grid
       container
@@ -36,10 +29,29 @@ const Homepage = () => {
           mazes={mazes}
           selectedMaze={selectedMaze}
           setMaze={setMaze}
-          title="Select a maze"
+          title="Select an Official Maze (Competitive)"
+          isLoading={isLoading}
+          isError={isError}
         />
       </Grid>
-      {selectedMaze && (
+      {selectedMaze?.official && (
+        <Grid item sx={{ width: "100%" }}>
+          <MazePreviewCard {...selectedMaze} />
+        </Grid>
+      )}
+      {myMazes && (
+        <Grid item sx={{ width: "100%" }}>
+          <MazeSelection
+            mazes={myMazes}
+            selectedMaze={selectedMaze}
+            setMaze={setMaze}
+            title="Select your own Maze (Practice)"
+            isLoading={myMazesLoading}
+            isError={myMazesError}
+          />
+        </Grid>
+      )}
+      {selectedMaze?.official === false && (
         <Grid item sx={{ width: "100%" }}>
           <MazePreviewCard {...selectedMaze} />
         </Grid>

@@ -1,6 +1,6 @@
 import { Button, Chip, Grid, Typography } from "@mui/material";
 import React, { Dispatch, SetStateAction } from "react";
-import { MazeProps } from "./MazePreviewWrapper";
+import { MazeProps } from "../../../types/maze";
 
 interface MazeItem {
   maze: MazeProps;
@@ -79,11 +79,17 @@ const MazeItemButton = ({
   selectedMaze: MazeProps | null;
   setMaze: Dispatch<SetStateAction<MazeProps | null>>;
 }) => {
+  const handleSelectMaze = () => {
+    if (selectedMaze?.id === maze.id) {
+      setMaze(null);
+    } else {
+      setMaze(maze);
+    }
+    console.log(selectedMaze);
+  };
   return (
     <Button
-      onClick={() => {
-        setMaze(maze);
-      }}
+      onClick={handleSelectMaze}
       sx={{
         padding: 0,
         width: 275,

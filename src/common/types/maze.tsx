@@ -7,6 +7,7 @@ export interface MazeProps {
   difficulty: string;
   structure: [][];
   highscores: [];
+  official: boolean;
 }
 
 export type GetMazesResponse = {
@@ -25,4 +26,6 @@ export interface MazeSelectionProps {
   selectedMaze?: MazeProps | null;
   setMaze?: Dispatch<SetStateAction<MazeProps | null>>;
   title: string;
+  isLoading: boolean;
+  isError: boolean;
 }

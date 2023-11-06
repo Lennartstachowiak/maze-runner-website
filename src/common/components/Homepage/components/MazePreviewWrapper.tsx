@@ -4,15 +4,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import MazePreviewBlock from "../../Maze/MazePreviewBlock";
 import Header from "../../components/Header";
-
-export interface MazeProps {
-  id: string;
-  name: string;
-  imgLink: string;
-  difficulty: string;
-  structure: [][];
-  highscores: [];
-}
+import { MazeProps } from "../../../types/maze";
 
 export const MazePreviewCard = (props: MazeProps) => {
   const { id, name, imgLink, difficulty, structure, highscores } = props;
@@ -27,6 +19,7 @@ export const MazePreviewCard = (props: MazeProps) => {
     <Grid
       container
       padding={3}
+      width="70%"
       sx={{
         borderRadius: 7,
         backgroundColor: (theme) => theme.palette.background.paper,
@@ -46,8 +39,8 @@ export const MazePreviewCard = (props: MazeProps) => {
             position: "absolute",
             bottom: 0,
             right: 0,
-            height: 150,
-            width: 150,
+            height: 120,
+            width: 120,
             color: (theme) => theme.palette.background.default,
             backgroundColor: (theme) => theme.palette.secondary.main,
           }}

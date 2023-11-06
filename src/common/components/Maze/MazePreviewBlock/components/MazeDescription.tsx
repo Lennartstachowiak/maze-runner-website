@@ -9,7 +9,7 @@ interface MazeDescriptionComponentProps {
 const MazeDescription = (props: MazeDescriptionComponentProps) => {
   const { name, difficulty } = props;
   return (
-    <Grid container paddingBottom={4} marginTop={1}>
+    <Grid container paddingBottom={3} marginTop={1} wrap="nowrap">
       <Typography variant="h3" color="secondary.main" paddingRight={3}>
         {name}
       </Typography>

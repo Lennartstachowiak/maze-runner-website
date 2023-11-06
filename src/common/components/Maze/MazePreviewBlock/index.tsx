@@ -21,7 +21,7 @@ const MazePreviewBlock = (props: MazePreviewBlockComponentProps) => {
       container
       direction="row"
       wrap="nowrap"
-      padding={3}
+      padding={2}
       sx={{
         borderRadius: 7,
         backgroundColor: (theme) => theme.palette.background.paper,
@@ -40,7 +40,7 @@ const MazePreviewBlock = (props: MazePreviewBlockComponentProps) => {
           />
         ) : (
           <img
-            width="100%"
+            width="95%"
             title="Maze Example"
             src={"data:image/png;base64," + imgLink}
           />
