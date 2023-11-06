@@ -1,5 +1,4 @@
-import { includes } from "lodash";
-import useSWR, { KeyedMutator } from "swr";
+import useSWR from "swr";
 
 // Tuple type
 type FetchProps = [input: RequestInfo | URL, init?: RequestInit | undefined];
@@ -227,7 +226,7 @@ export const saveAlgorithmChanges = async ({
 }) => {
   try {
     const res = await fetch(`${API_ENDPOINT}/v1/save_algorithm_changes`, {
-      method: "POST",
+      method: "PATCH",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
