@@ -43,7 +43,7 @@ const DrawerMenu = (props: DrawerMenuProps) => {
   };
   const handleGoToGenerateOwnMaze = () => {
     try {
-      router.push("my_mazes");
+      router.push("/my_mazes");
       handleDrawerClick();
     } catch (error) {
       console.error(error);

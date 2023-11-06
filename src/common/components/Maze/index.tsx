@@ -2,7 +2,6 @@ import Typography from "@mui/material/Typography";
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { Grid } from "@mui/material";
-import { MazeProps } from "../Homepage/components/MazePreviewWrapper";
 import {
   getMazeAlgorithmSolution,
   useGetAlgorithms,
@@ -15,6 +14,7 @@ import RegisterDialog from "../components/RegisterAndLogin";
 import { AlgorithmInterface } from "../Algorithms/AlgorithmPreviewList/types";
 import { AlgorithmListHorizontal } from "../Algorithms/AlgorithmPreviewList/AlgorithmPreviewBlock";
 import { CircularProgress } from "@mui/material";
+import { MazeProps } from "../../types/maze";
 
 export type ScoreType = {
   steps: number;

@@ -3,21 +3,29 @@ import React from "react";
 
 interface PlayerProps {
   name: string;
+  algorithm_name: string;
   score: number;
 }
 
 const PlayerScore = ({ player }: { player: PlayerProps }) => {
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={0} direction="column" py={1}>
       <Grid item>
         <Typography variant="h5" color="secondary.main">
-          {player.name}
+          User: {player.name}
         </Typography>
       </Grid>
       <Grid item>
-        <Typography variant="h5" color="secondary.main">
-          {player.score}
-        </Typography>
+        <Grid item>
+          <Typography variant="h5" color="secondary.main">
+            Algorithm: {player.algorithm_name}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="h5" color="secondary.main">
+            Score: {player.score}
+          </Typography>
+        </Grid>
       </Grid>
     </Grid>
   );
