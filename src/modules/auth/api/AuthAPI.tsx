@@ -1,9 +1,11 @@
 import useSWR from "swr";
+import { PublicConfiguration } from "swr/_internal";
+import UserInterface from "../../../common/types/user";
 
 // Tuple type
 type FetchProps = [input: RequestInfo | URL, init?: RequestInit | undefined];
 
-const fetcher = async (args: FetchProps) => {
+const fetcher: PublicConfiguration["fetcher"] = async (args: FetchProps) => {
   const [input, init] = args;
   const res = await fetch(input, init);
   return await res.json();
@@ -27,7 +29,7 @@ const useHandleAuth = () => {
   );
 
   return {
-    user: data,
+    user: data as UserInterface | null,
     isLoading,
     isError: error,
   };

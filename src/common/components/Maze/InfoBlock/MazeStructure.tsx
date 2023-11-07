@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { MazeProps } from "../../Homepage/components/MazePreviewWrapper";
 import { Grid, Typography, Button } from "@mui/material";
+import { MazeProps } from "../../../types/maze";
 
 interface MazeStructureProps {
   maze: MazeProps;

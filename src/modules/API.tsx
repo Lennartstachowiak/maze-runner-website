@@ -1,9 +1,11 @@
 import useSWR from "swr";
+import { PublicConfiguration } from "swr/_internal";
+import { MazeProps } from "../common/types/maze";
+import { AlgorithmInterface } from "../common/components/Algorithms/AlgorithmPreviewList/types";
 
-// Tuple type
 type FetchProps = [input: RequestInfo | URL, init?: RequestInit | undefined];
 
-const fetcher = async (args: FetchProps) => {
+const fetcher: PublicConfiguration["fetcher"] = async (args: FetchProps) => {
   const [input, init] = args;
   const res = await fetch(input, init);
   return await res.json();
@@ -27,7 +29,7 @@ export const useGetMazes = () => {
   );
 
   return {
-    mazes: data,
+    mazes: data as MazeProps[],
     isLoading,
     isError: error,
   };
@@ -49,10 +51,10 @@ export const useGetMyMazes = () => {
   );
 
   return {
-    mazes: data,
+    mazes: data as MazeProps[],
     isLoading,
     isError: error,
-    mutate: mutate,
+    mutate,
   };
 };
 
@@ -71,9 +73,9 @@ export const useGetSingleMaze = (id: string | undefined) => {
     fetcher
   );
 
-  let maze = data;
-  if (data) {
-    const replacedStringStructure = data.structure.replace(/'/g, '"');
+  let maze = data as MazeProps & { structure: string };
+  if (maze) {
+    const replacedStringStructure = maze.structure.replace(/'/g, '"');
     const structure = JSON.parse(replacedStringStructure);
     maze = { ...maze, structure: structure };
   }
@@ -127,10 +129,10 @@ export const useGetAlgorithms = () => {
   );
 
   return {
-    algorithmList: data,
-    isLoading: isLoading,
-    isError: error,
-    mutate: mutate,
+    algorithmList: data as AlgorithmInterface[],
+    isLoading,
+    isError: error as boolean,
+    mutate,
   };
 };
 
@@ -151,10 +153,10 @@ export const useGetSingleAlgorithm = (id: string | undefined) => {
 
   const algorithm = data;
   return {
-    algorithm: algorithm,
+    algorithm: algorithm as AlgorithmInterface,
     isLoading,
-    isError: error,
-    mutate: mutate,
+    isError: error as boolean,
+    mutate,
   };
 };
 

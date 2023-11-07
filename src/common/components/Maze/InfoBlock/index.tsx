@@ -2,11 +2,11 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useGetSingleMaze } from "../../../../modules/API";
-import { MazeProps } from "../../Homepage/components/MazePreviewWrapper";
 import GameComponent from "../MazePreviewBlock/components/MazeRender";
 import { CircularProgress, Button } from "@mui/material";
 import { MazeSolution } from "..";
 import router from "next/router";
+import { MazeProps } from "../../../types/maze";
 
 interface InfoBlockProps {
   mazeSolution: MazeSolution | null;
