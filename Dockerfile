@@ -1,4 +1,5 @@
 FROM node:latest
+RUN node --version
 WORKDIR /app
 COPY . .
 RUN yarn install
