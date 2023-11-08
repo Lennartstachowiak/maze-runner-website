@@ -25,6 +25,7 @@
     "dotenv": "^16.3.1",
     "jquery": "^3.6.3",
     "lodash": "^4.17.21",
+    "monaco-editor": "^0.44.0",
     "next": "^13.4.4",
     "pdfjs-dist": "^2.16.105",
     "react": "^18.2.0",
