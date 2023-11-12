@@ -21,18 +21,19 @@ const MazePreviewBlock = (props: MazePreviewBlockComponentProps) => {
       container
       direction="row"
       wrap="nowrap"
-      padding={2}
+      paddingY={3}
+      paddingX={5}
       sx={{
         borderRadius: 7,
         backgroundColor: (theme) => theme.palette.background.paper,
       }}
     >
-      <Grid item xs={4}>
+      <Grid item xs={6}>
         <MazeDescription name={name} difficulty={difficulty} />
         <MazeHighscore highscores={highscores} />
       </Grid>
       <Grid item xs={1} />
-      <Grid item xs={7} padding={2}>
+      <Grid item xs={5} padding={2}>
         {mazeStructure && mazeSolution ? (
           <GameComponent
             mazeStructure={mazeStructure}

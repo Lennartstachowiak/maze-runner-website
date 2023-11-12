@@ -11,18 +11,33 @@ const PlayerScore = ({ player }: { player: PlayerProps }) => {
   return (
     <Grid container spacing={0} direction="column" py={1}>
       <Grid item>
-        <Typography variant="h5" color="secondary.main">
-          User: {player.name}
+        <Typography
+          variant="body1"
+          color="secondary.main"
+          flexWrap="nowrap"
+          whiteSpace="nowrap"
+        >
+          {player.name}
         </Typography>
       </Grid>
       <Grid item>
         <Grid item>
-          <Typography variant="h5" color="secondary.main">
-            Algorithm: {player.algorithm_name}
+          <Typography
+            variant="body1"
+            color="secondary.main"
+            flexWrap="nowrap"
+            whiteSpace="nowrap"
+          >
+            {player.algorithm_name}
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="h5" color="secondary.main">
+          <Typography
+            variant="body1"
+            color="secondary.main"
+            flexWrap="nowrap"
+            whiteSpace="nowrap"
+          >
             Score: {player.score}
           </Typography>
         </Grid>
@@ -37,6 +52,10 @@ interface MazeHighscoreComponentProps {
 
 const MazeHighscore = (props: MazeHighscoreComponentProps) => {
   const { highscores } = props;
+  const sorted_highscores = highscores.sort(
+    (a: PlayerProps, b: PlayerProps) => a.score - b.score
+  );
+  const top_3_players = sorted_highscores.slice(0, 3);
   return (
     <Grid item height="100%" width="100%">
       <Grid
@@ -52,10 +71,24 @@ const MazeHighscore = (props: MazeHighscoreComponentProps) => {
         <Typography variant="h4" color="secondary.main">
           Highscores
         </Typography>
-        <Grid item paddingX={1} paddingY={1}>
-          {highscores.map((player: PlayerProps, index) => (
-            <Grid key={index}>
-              <PlayerScore player={player} />
+        <Grid item paddingX={1} paddingY={1} overflow="auto">
+          {top_3_players.map((player: PlayerProps, index) => (
+            <Grid
+              container
+              key={index}
+              direction="row"
+              alignItems="center"
+              flexWrap="nowrap"
+              spacing={2}
+            >
+              <Grid item>
+                <Typography variant="h5" color="secondary.main">
+                  {index + 1}.
+                </Typography>
+              </Grid>
+              <Grid item>
+                <PlayerScore player={player} />
+              </Grid>
             </Grid>
           ))}
         </Grid>

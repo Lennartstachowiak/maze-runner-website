@@ -18,7 +18,7 @@ export const MazePreviewCard = (props: MazeProps) => {
   return (
     <Grid
       container
-      padding={3}
+      padding={0}
       width="70%"
       sx={{
         borderRadius: 7,
@@ -26,7 +26,9 @@ export const MazePreviewCard = (props: MazeProps) => {
       }}
     >
       <Grid container position="relative">
-        <Header title="Selected maze" />
+        <Grid paddingLeft={4} paddingTop={3}>
+          <Header title="Selected maze" />
+        </Grid>
         <MazePreviewBlock
           name={name}
           difficulty={difficulty}
