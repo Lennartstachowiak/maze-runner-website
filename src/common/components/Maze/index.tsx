@@ -99,6 +99,10 @@ const MazePreview = (componentProps: componentPropsInterface) => {
         algorithmId: selectedAlgorithm?.id,
         mazeId: maze?.id,
       });
+      if (!mazeSearchSolution) {
+        alert("Error");
+        return;
+      }
       setMazeSolution(mazeSearchSolution);
       score.current.steps = mazeSearchSolution.solution.length;
       score.current.visitedSteps = mazeSearchSolution.visited.length;
