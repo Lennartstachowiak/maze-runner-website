@@ -8,13 +8,16 @@ type FetchProps = [input: RequestInfo | URL, init?: RequestInit | undefined];
 const fetcher: PublicConfiguration["fetcher"] = async (args: FetchProps) => {
   const [input, init] = args;
   const res = await fetch(input, init);
+  if (res.status === 401) {
+    throw new Error("Unauthorized");
+  }
   return await res.json();
 };
 
 const NEXT_PUBLIC_API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const useHandleAuth = () => {
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     [
       `${NEXT_PUBLIC_API_ENDPOINT}/v1/@me`,
       {
@@ -29,9 +32,10 @@ const useHandleAuth = () => {
   );
 
   return {
-    user: data as UserInterface | null,
+    user: data as UserInterface,
     isLoading,
     isError: error,
+    mutate,
   };
 };
 
@@ -51,7 +55,6 @@ const handleLogin = async (email: string, password: string) => {
     if (res.status !== 200) {
       throw res.status;
     }
-    window.location.href = "/";
   } catch (error) {
     if (error === 401) {
       alert("Invalid credentials");

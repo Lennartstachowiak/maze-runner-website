@@ -11,25 +11,33 @@ import {
 import React from "react";
 import { handleLogin, handleRegister } from "../../../modules/auth/api/AuthAPI";
 import DialogComponent from "./DialogComponet";
+import { KeyedMutator } from "swr";
 
 interface RegisterDialogProps {
   openRegisterDialog?: boolean;
   handleCloseRegisterDialog: () => void;
+  mutate: KeyedMutator<unknown>;
 }
 
 const RegisterDialog = (props: RegisterDialogProps) => {
-  const { openRegisterDialog = true, handleCloseRegisterDialog } = props;
+  const {
+    openRegisterDialog = true,
+    handleCloseRegisterDialog,
+    mutate,
+  } = props;
   const [isLogin, setIsLogin] = React.useState(true);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [repeatedPassword, setRepeatedPassword] = React.useState("");
 
-  const handleClickLogin = () => {
-    handleLogin(email, password);
+  const handleClickLogin = async () => {
+    await handleLogin(email, password);
+    await mutate();
   };
 
-  const handleClickRegister = () => {
-    handleRegister(email, password, repeatedPassword);
+  const handleClickRegister = async () => {
+    await handleRegister(email, password, repeatedPassword);
+    await mutate();
   };
   const dialogTitle = (
     <DialogTitle id={"title"}>{isLogin ? "Login" : "Register"}</DialogTitle>

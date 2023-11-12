@@ -8,6 +8,9 @@ type FetchProps = [input: RequestInfo | URL, init?: RequestInit | undefined];
 const fetcher: PublicConfiguration["fetcher"] = async (args: FetchProps) => {
   const [input, init] = args;
   const res = await fetch(input, init);
+  if (res.status === 401) {
+    throw new Error(res.statusText);
+  }
   return await res.json();
 };
 

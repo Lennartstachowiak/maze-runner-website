@@ -16,6 +16,7 @@ import { AlgorithmListHorizontal } from "../Algorithms/AlgorithmPreviewList/Algo
 import { CircularProgress } from "@mui/material";
 import { MazeProps } from "../../types/maze";
 import { KeyedMutator } from "swr";
+import { AuthPropsInterface } from "../../types";
 
 export type ScoreType = {
   steps: number;
@@ -30,16 +31,8 @@ export type MazeSolution = {
   error: string;
 };
 
-interface UserProps {
-  email: string;
-  id: string;
-}
-interface componentPropsInterface {
-  user: UserProps;
-}
-
-const MazePreview = (componentProps: componentPropsInterface) => {
-  const { user } = componentProps;
+const MazePreview = (componentProps: AuthPropsInterface) => {
+  const { user, mutate: authMutate } = componentProps;
   const route = useRouter();
   const score = useRef<ScoreType>({ steps: 0, visitedSteps: 0, score: 0 });
   const [mazeSolution, setMazeSolution] = useState<MazeSolution | null>(null);
@@ -74,7 +67,10 @@ const MazePreview = (componentProps: componentPropsInterface) => {
       route.back();
     };
     return (
-      <RegisterDialog handleCloseRegisterDialog={handleCloseRegisterDialog} />
+      <RegisterDialog
+        handleCloseRegisterDialog={handleCloseRegisterDialog}
+        mutate={authMutate}
+      />
     );
   }
   if (isMazeLoading) {

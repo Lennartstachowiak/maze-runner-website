@@ -6,16 +6,16 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import React from "react";
 import RegisterDialogButton from "./RegisterDialogButton";
-import UserInterface from "../../types/user";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DrawerMenu from "./DrawerMenu";
+import { AuthPropsInterface } from "../../types";
 
 interface HeaderProps {
-  user: UserInterface | null;
+  authProps: AuthPropsInterface;
 }
 
 const Header = (props: HeaderProps) => {
-  const { user } = props;
+  const { user, mutate } = props.authProps;
   const router = useRouter();
   // const pathname = router.pathname;
 
@@ -64,12 +64,13 @@ const Header = (props: HeaderProps) => {
                 </Avatar>
               </IconButton>
             ) : (
-              <RegisterDialogButton />
+              <RegisterDialogButton mutate={mutate} />
             )}
             <DrawerMenu
               drawerState={drawerState}
               handleDrawerClick={handleDrawerClick}
               user={user}
+              mutate={mutate}
             />
           </Box>
         </Toolbar>
@@ -86,16 +87,16 @@ type ChildrenType = React.ReactNode | string;
 
 interface WrapperProps {
   children: ChildrenType;
-  user: UserInterface | null;
+  authProps: AuthPropsInterface;
 }
 
 const Wrapper = (props: WrapperProps) => {
-  const { children, user } = props;
+  const { children, authProps } = props;
   const router = useRouter();
   const isRootPath = router.pathname === "/";
   return (
     <div>
-      <Header user={user} />
+      <Header authProps={authProps} />
       <Container>
         <Grid container direction="row">
           {!isRootPath && (

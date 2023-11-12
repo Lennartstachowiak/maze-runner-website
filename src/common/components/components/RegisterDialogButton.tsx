@@ -2,8 +2,14 @@ import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import React from "react";
 import RegisterDialog from "./RegisterAndLogin";
+import { KeyedMutator } from "swr";
 
-const RegisterDialogButton = () => {
+interface RegisterDialogButtonProps {
+  mutate: KeyedMutator<unknown>;
+}
+
+const RegisterDialogButton = (props: RegisterDialogButtonProps) => {
+  const { mutate } = props;
   const [openRegisterDialog, setOpenRegisterDialog] = React.useState(false);
 
   const handleOpenRegisterDialog = () => {
@@ -33,6 +39,7 @@ const RegisterDialogButton = () => {
       <RegisterDialog
         openRegisterDialog={openRegisterDialog}
         handleCloseRegisterDialog={handleCloseRegisterDialog}
+        mutate={mutate}
       />
     </div>
   );

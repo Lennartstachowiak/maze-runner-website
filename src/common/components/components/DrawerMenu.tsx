@@ -6,19 +6,24 @@ import React from "react";
 import LoginStatus from "./LoginStatus";
 import { handleLogout } from "../../../modules/auth/api/AuthAPI";
 import router from "next/router";
-import UserInterface from "../../types/user";
+import { UserProps } from "../../types";
+import { KeyedMutator } from "swr";
 
 interface DrawerMenuProps {
   drawerState: boolean;
   handleDrawerClick: () => void;
-  user: UserInterface | null;
+  user: UserProps | null;
+  mutate: KeyedMutator<unknown>;
 }
 
 const DrawerMenu = (props: DrawerMenuProps) => {
-  const { drawerState, handleDrawerClick, user } = props;
-  const handleClickLogout = () => {
+  const { drawerState, handleDrawerClick, user, mutate } = props;
+
+  const handleClickLogout = async () => {
     try {
-      handleLogout();
+      await handleLogout();
+      await mutate();
+      handleDrawerClick();
     } catch (error) {
       console.error(error);
     }

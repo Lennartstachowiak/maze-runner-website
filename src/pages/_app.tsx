@@ -7,18 +7,22 @@ import React from "react";
 import Wrapper from "../common/components/components/Wrapper";
 import LoadingDialog from "../common/components/components/LoadingDialog";
 import "dotenv/config";
+import { RecoilRoot } from "recoil";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const theme = getTheme();
-  const { user, isLoading } = useHandleAuth();
-  const componentProps = { ...pageProps, user };
+  const { user, isLoading, mutate } = useHandleAuth();
+  const authProps = { user, mutate };
+  const componentProps = { ...pageProps, ...authProps };
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Wrapper user={user}>
-        <Component {...componentProps} />
-      </Wrapper>
-      <LoadingDialog loading={isLoading} />
+      <RecoilRoot>
+        <CssBaseline />
+        <Wrapper authProps={authProps}>
+          <Component {...componentProps} />
+        </Wrapper>
+        <LoadingDialog loading={isLoading} />
+      </RecoilRoot>
     </ThemeProvider>
   );
 }
