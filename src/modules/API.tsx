@@ -59,7 +59,7 @@ export const useGetMyMazes = () => {
 };
 
 export const useGetSingleMaze = (id: string | undefined) => {
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     id
       ? [
           `${API_ENDPOINT}/v1/get_single_maze?id=${id}`,
@@ -83,6 +83,7 @@ export const useGetSingleMaze = (id: string | undefined) => {
     maze: maze,
     isLoading,
     isError: error,
+    mutate,
   };
 };
 

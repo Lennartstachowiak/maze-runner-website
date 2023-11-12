@@ -86,7 +86,6 @@ const MazeItemButton = ({
     } else {
       setMaze(maze);
     }
-    console.log(selectedMaze);
   };
   return (
     <Button

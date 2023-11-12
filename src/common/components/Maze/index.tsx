@@ -15,6 +15,7 @@ import { AlgorithmInterface } from "../Algorithms/AlgorithmPreviewList/types";
 import { AlgorithmListHorizontal } from "../Algorithms/AlgorithmPreviewList/AlgorithmPreviewBlock";
 import { CircularProgress } from "@mui/material";
 import { MazeProps } from "../../types/maze";
+import { KeyedMutator } from "swr";
 
 export type ScoreType = {
   steps: number;
@@ -50,10 +51,12 @@ const MazePreview = (componentProps: componentPropsInterface) => {
     maze,
     isLoading: isMazeLoading,
     isError: isMazeError,
+    mutate,
   }: {
     maze: MazeProps;
     isLoading: boolean;
     isError: boolean;
+    mutate: KeyedMutator<unknown>;
   } = useGetSingleMaze(id);
 
   const {
@@ -100,6 +103,7 @@ const MazePreview = (componentProps: componentPropsInterface) => {
       score.current.steps = mazeSearchSolution.solution.length;
       score.current.visitedSteps = mazeSearchSolution.visited.length;
       score.current.score = mazeSearchSolution.score;
+      await mutate();
     };
 
     return (
