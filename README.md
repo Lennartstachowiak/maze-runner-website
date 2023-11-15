@@ -4,7 +4,8 @@
 
 #### Table of Contents
 
-- [Description](#description)
+- [Documentation](#documentation)
+  - [Overview](#overview)
 - [Getting Started](#started)
 - [Running with Docker (recommended)](#docker)
   - [Prerequisites](#prerequisitesdocker)
@@ -18,12 +19,26 @@
 
 ---
 
-## Description <a name="description"></a>
+# Documentation <a name="documentation"></a>
+
+## Overview <a name="overview">
 
 This is the website for [Maze Runner Backend](https://github.com/Lennartstachowiak/maze-runner-api). To interact with the website you also need to run the backend.
 On the website the user can interact with they algorithms and mazes. The user can edit algorithms and create new algorithms, can create new mazes, can solve mazes and compete against others in the highscore list.
 
+### Tech Stack
+
 - The website is build with the frameworks [React](https://react.dev/), [Next.js](https://nextjs.org/) and [Typescript](https://www.typescriptlang.org/) as language.
+
+### Project Structure / Diagram
+
+|                     [Context Diagram](images/1_mms_overview.png)                      |                    [Container Diagram](images/2_application_overview.png)                    |
+| :-----------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
+|    <img src="images/1_mms_overview.png" alt="User Overview" style="width: 160%;">     | <img src="images/2_application_overview.png" alt="Application Overview" style="width: 60%;"> |
+|                  [Component Diagram](images/3_backend_overview.png)                   |                       [Code Diagram](images/4_backend_controller.png)                        |
+| <img src="images/3_backend_overview.png" alt="Backend Overview" style="width: 120%;"> |   <img src="images/4_backend_controller.png" alt="Backend Controller" style="width: 80%;">   |
+
+---
 
 # Getting Started <a name="started"></a>
 
