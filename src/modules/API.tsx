@@ -252,16 +252,18 @@ export const saveAlgorithmChanges = async ({
 export const generateNewMaze = async ({
   mazeName,
   mazeSize,
+  generateType,
 }: {
   mazeName: string;
   mazeSize: number;
+  generateType: string;
 }) => {
   try {
     const res = await fetch(`${API_ENDPOINT}/v1/generate_maze`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ mazeName: mazeName, mazeSize: mazeSize }),
+      body: JSON.stringify({ mazeName, mazeSize, generateType }),
     });
     const data = await res.json();
     return data;

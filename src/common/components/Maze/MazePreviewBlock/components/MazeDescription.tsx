@@ -1,5 +1,6 @@
-import { Chip, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React from "react";
+import DifficultyChip from "../../../components/DifficultyChip";
 
 interface MazeDescriptionComponentProps {
   name: string;
@@ -13,13 +14,7 @@ const MazeDescription = (props: MazeDescriptionComponentProps) => {
       <Typography variant="h3" color="secondary.main" paddingRight={3}>
         {name}
       </Typography>
-      <Chip
-        label={difficulty}
-        sx={{
-          color: (theme) => theme.palette.secondary.main,
-          backgroundColor: (theme) => theme.palette.background.default,
-        }}
-      />
+      <DifficultyChip difficulty={difficulty} />
     </Grid>
   );
 };

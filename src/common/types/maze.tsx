@@ -29,3 +29,10 @@ export interface MazeSelectionProps {
   isLoading: boolean;
   isError: boolean;
 }
+
+const GenerateTypesEnum = {
+  RecursiveBacktracking: "RecursiveBacktracking",
+  Sidewinder: "Sidewinder",
+};
+
+export type GenerateTypes = keyof typeof GenerateTypesEnum;
