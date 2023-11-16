@@ -30,6 +30,8 @@
 
 ## Overview <a name="overview"></a>
 
+Here is the link to the hosted website of [Maze Runner](https://maze-runner-website.vercel.app/).
+
 This is the website for [Maze Runner Backend](https://github.com/Lennartstachowiak/maze-runner-api).
 
 - Maze Runner is a application on which users can compete against each other by creating algorithms to solve mazes.
