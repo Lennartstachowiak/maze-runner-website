@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import React from "react";
 import Score from "../../molecules/Maze/Score";
 import { ScoreType } from "../../pages/MazePage";
-import FancyTextButton from "../../atoms/Button/FancytextButton";
+import FancyTextButton from "../../atoms/Button/FancyTextButton";
 
 interface MenuProps {
   isDiabled: boolean;
