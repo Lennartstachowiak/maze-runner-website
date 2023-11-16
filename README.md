@@ -14,21 +14,21 @@
   - [External Dependencies](#dependencies)
   - [Diagrams](#diagrams)
 - [Getting Started](#started)
-- [Running with Docker (recommended)](#docker)
-  - [Prerequisites](#prerequisitesdocker)
-  - [Installation](#installation)
-  - [Setting up the environment](#envdocker)
-  - [Running the application](#rundocker)
-- [Running with yarn or npm](#yarnnpm)
-  - [Prerequisites](#prerequisitesyarnnpm)
-  - [Installation](#installationyarnnpm)
-  - [Running the application](#runyarnnpm)
+  - [Running with Docker (recommended)](#docker)
+    - [Prerequisites](#prerequisitesdocker)
+    - [Installation](#installation)
+    - [Setting up the environment](#envdocker)
+    - [Running the application](#rundocker)
+  - [Running with yarn or npm](#yarnnpm)
+    - [Prerequisites](#prerequisitesyarnnpm)
+    - [Installation](#installationyarnnpm)
+    - [Running the application](#runyarnnpm)
 
 ---
 
 # Documentation <a name="documentation"></a>
 
-## Overview <a name="overview">
+## Overview <a name="overview"></a>
 
 This is the website for [Maze Runner Backend](https://github.com/Lennartstachowiak/maze-runner-api).
 
@@ -46,30 +46,30 @@ On the website the user can interact with they algorithms and mazes. The user ca
 
 - The website is build with the frameworks [React](https://react.dev/), [Next.js](https://nextjs.org/) and [Typescript](https://www.typescriptlang.org/) as language. Styling is done with [MUI](https://mui.com/)
 
-## Project Structure <a name="structure">
+## Project Structure <a name="structure"></a>
 
 The application is handled with [Next.js](https://nextjs.org/).
-The main entry file for the frontend application is the [`_app.tsx`](src/pages/\_app.tsx) file which is a wrapper around all pages.
+The main entry file for the frontend application is the [`_app.tsx`](src/pages/_app.tsx) file which is a wrapper around all pages.
 
-## Design Patterns <a name="design">
+## Design Patterns <a name="design"></a>
 
 ### Atomic Design
 
 I used the [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) for the component structure.
 
-## Styling <a name="styling">
+## Styling <a name="styling"></a>
 
-Styling is done with [MUI](https://mui.com/) and the Theme provider of MUI in [`_app.tsx`](src/pages/\_app.tsx). The styling of most of the colors and fonts is done in [theme.tsx](src/theme.tsx).
+Styling is done with [MUI](https://mui.com/) and the Theme provider of MUI in [`_app.tsx`](src/pages/_app.tsx). The styling of most of the colors and fonts is done in [theme.tsx](src/theme.tsx).
 
-## Routing <a name="routing">
+## Routing <a name="routing"></a>
 
 Routing is handled by [Next.js](https://nextjs.org/) and all routes are in the folder [pages](src/pages). For routing to a new page I used the [Next Router](https://nextjs.org/docs/pages/building-your-application/routing).
 
-## API Endpoints <a name="endpoints">
+## API Endpoints <a name="endpoints"></a>
 
 The api endpoint to the packend are located in the [modules](src/modules) folder. Separated in authentication endpoints and other endpoints.
 
-## External Dependencies <a name="dependencies">
+## External Dependencies <a name="dependencies"></a>
 
 Besides mentioned packages I also added:
 
@@ -77,7 +77,7 @@ Besides mentioned packages I also added:
 - [monaco-editor](https://microsoft.github.io/monaco-editor/) for the [code block component](src/common/components/organisms/Algorithm/AlgorithmCodeBlock.tsx) to edit the algorithm code.
 - [husky](https://typicode.github.io/husky/) and [eslint](https://eslint.org/) for linting the code before [every commit](.husky/pre-commit).
 
-### Diagrams <a name="diagrams">
+### Diagrams <a name="diagrams"></a>
 
 |                  [Context Diagram](images/1_mms_overview.png)                  |                    [Container Diagram](images/2_application_overview.png)                    |
 | :----------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
