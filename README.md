@@ -82,7 +82,8 @@ Besides mentioned packages I also added:
 | :----------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
 | <img src="images/1_mms_overview.png" alt="User Overview" style="width: 160%;"> | <img src="images/2_application_overview.png" alt="Application Overview" style="width: 60%;"> |
 
-[Pages Diagram](images/3_backend_overview.png)
+[**Pages Diagram**](images/3_backend_overview.png)
+
 <img src="images/3_frontend_page_overview.png" alt="Frontend Pages Overview" style="width: 50%;"> |
 
 ---
