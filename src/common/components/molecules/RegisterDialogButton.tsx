@@ -1,8 +1,7 @@
-import { Typography } from "@mui/material";
-import Button from "@mui/material/Button";
 import React from "react";
 import RegisterDialog from "../organisms/RegisterAndLogin";
 import { KeyedMutator } from "swr";
+import TextButton from "../atoms/Button/TextButton";
 
 interface RegisterDialogButtonProps {
   mutate: KeyedMutator<unknown>;
@@ -22,20 +21,10 @@ const RegisterDialogButton = (props: RegisterDialogButtonProps) => {
 
   return (
     <div>
-      <Button variant="text" color="primary" onClick={handleOpenRegisterDialog}>
-        <Typography
-          variant="body1"
-          paddingX={2}
-          paddingY={1}
-          borderRadius={3}
-          sx={{
-            color: (theme) => theme.palette.background.default,
-            backgroundColor: (theme) => theme.palette.secondary.main,
-          }}
-        >
-          Login / Register
-        </Typography>
-      </Button>
+      <TextButton
+        text="Login / Register"
+        handleClick={handleOpenRegisterDialog}
+      />
       <RegisterDialog
         openRegisterDialog={openRegisterDialog}
         handleCloseRegisterDialog={handleCloseRegisterDialog}

@@ -1,8 +1,8 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import StartButton from "../../molecules/Maze/StartButton";
 import Score from "../../molecules/Maze/Score";
 import { ScoreType } from "../../pages/MazePage";
+import FancyTextButton from "../../atoms/Button/FancytextButton";
 
 interface MenuProps {
   isDiabled: boolean;
@@ -24,7 +24,11 @@ const Menu = (props: MenuProps) => {
         <Score isDisabled={isDiabled} score={score} />
       </Grid>
       <Grid item>
-        <StartButton isDiabled={isDiabled} handleStart={handleStart} />
+        <FancyTextButton
+          isDiabled={isDiabled}
+          handleClick={handleStart}
+          text={"Solve maze"}
+        />
       </Grid>
     </Grid>
   );

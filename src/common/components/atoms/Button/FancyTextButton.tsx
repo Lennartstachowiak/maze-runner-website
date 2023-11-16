@@ -1,19 +1,15 @@
 import { Button, Typography, Grid } from "@mui/material";
 import React from "react";
+import { TextButtonInterface } from "../../../types";
 
-interface StartButtonProps {
-  isDiabled: boolean;
-  handleStart: () => void;
-}
-
-const StartButton = (props: StartButtonProps) => {
-  const { isDiabled, handleStart } = props;
+const FancyTextButton = (props: TextButtonInterface) => {
+  const { text, isDiabled, handleClick } = props;
 
   return (
     <Grid container>
       <Button
         disabled={isDiabled}
-        onClick={handleStart}
+        onClick={handleClick}
         sx={{
           height: 80,
           width: 200,
@@ -23,11 +19,11 @@ const StartButton = (props: StartButtonProps) => {
         }}
       >
         <Typography variant="h4" color="secondary.main" paddingY={1.5}>
-          Solve maze
+          {text}
         </Typography>
       </Button>
     </Grid>
   );
 };
 
-export default StartButton;
+export default FancyTextButton;

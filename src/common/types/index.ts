@@ -9,3 +9,9 @@ export interface AuthPropsInterface {
   user: UserProps | null;
   mutate: KeyedMutator<unknown>;
 }
+
+export interface TextButtonInterface {
+  text: string;
+  handleClick: () => void;
+  isDiabled?: boolean;
+}
