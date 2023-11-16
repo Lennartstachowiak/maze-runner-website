@@ -78,11 +78,10 @@ Besides mentioned packages I also added:
 
 ### Diagrams <a name="diagrams">
 
-|                     [Context Diagram](images/1_mms_overview.png)                      |                    [Container Diagram](images/2_application_overview.png)                    |
-| :-----------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
-|    <img src="images/1_mms_overview.png" alt="User Overview" style="width: 160%;">     | <img src="images/2_application_overview.png" alt="Application Overview" style="width: 60%;"> |
-|                  [Component Diagram](images/3_backend_overview.png)                   |                       [Code Diagram](images/4_backend_controller.png)                        |
-| <img src="images/3_backend_overview.png" alt="Backend Overview" style="width: 120%;"> |   <img src="images/4_backend_controller.png" alt="Backend Controller" style="width: 80%;">   |
+|                  [Context Diagram](images/1_mms_overview.png)                  |                    [Container Diagram](images/2_application_overview.png)                    |
+| :----------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
+| <img src="images/1_mms_overview.png" alt="User Overview" style="width: 160%;"> | <img src="images/2_application_overview.png" alt="Application Overview" style="width: 60%;"> |
+|               [Component Diagram](images/3_backend_overview.png)               |
 
 ---
 
