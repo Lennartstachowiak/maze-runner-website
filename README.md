@@ -1,6 +1,6 @@
 # Maze Runner Website
 
-<img width="1120" alt="Screenshot 2023-11-13 at 10 35 42" src="https://github.com/Lennartstachowiak/maze-runner-website/assets/73605417/f925984b-1e8c-42fc-9d12-fd731e699585">
+![Cover Image](images/cover.png)
 
 #### Table of Contents
 
