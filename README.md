@@ -37,6 +37,7 @@ This is the website for [Maze Runner Backend](https://github.com/Lennartstachowi
 - Users can generate new mazes which they own and can practice with.
 - Algorithms can directly be created and edited in the application and can be tested while writing the code.
   - Errors will be shown as well.
+  - Newly created Algorithm have to pass the test maze to be able to be used for other mazes.
 
 To interact with the website you also need to run the backend.
 On the website the user can interact with they algorithms and mazes. The user can edit algorithms and create new algorithms, can create new mazes, can solve mazes and compete against others in the highscore list.
