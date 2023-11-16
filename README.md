@@ -6,6 +6,13 @@
 
 - [Documentation](#documentation)
   - [Overview](#overview)
+  - [Project Structure](#structure)
+  - [Design Patterns](#design)
+  - [Styling](#styling)
+  - [Routing](#routing)
+  - [API Endpoints](#endpoints)
+  - [External Dependencies](#dependencies)
+  - [Diagrams](#diagrams)
 - [Getting Started](#started)
 - [Running with Docker (recommended)](#docker)
   - [Prerequisites](#prerequisitesdocker)
@@ -23,14 +30,53 @@
 
 ## Overview <a name="overview">
 
-This is the website for [Maze Runner Backend](https://github.com/Lennartstachowiak/maze-runner-api). To interact with the website you also need to run the backend.
+This is the website for [Maze Runner Backend](https://github.com/Lennartstachowiak/maze-runner-api).
+
+- Maze Runner is a application on which users can compete against each other by creating algorithms to solve mazes.
+- Each successful solution path from the start to the goal will be added to the highscore list.
+- Users can generate new mazes which they own and can practice with.
+- Algorithms can directly be created and edited in the application and can be tested while writing the code.
+  - Errors will be shown as well.
+
+To interact with the website you also need to run the backend.
 On the website the user can interact with they algorithms and mazes. The user can edit algorithms and create new algorithms, can create new mazes, can solve mazes and compete against others in the highscore list.
 
 ### Tech Stack
 
-- The website is build with the frameworks [React](https://react.dev/), [Next.js](https://nextjs.org/) and [Typescript](https://www.typescriptlang.org/) as language.
+- The website is build with the frameworks [React](https://react.dev/), [Next.js](https://nextjs.org/) and [Typescript](https://www.typescriptlang.org/) as language. Styling is done with [MUI](https://mui.com/)
 
-### Project Structure / Diagram
+## Project Structure <a name="structure">
+
+The application is handled with [Next.js](https://nextjs.org/).
+The main entry file for the frontend application is the [`_app.tsx`](src/pages/\_app.tsx) file which is a wrapper around all pages.
+
+## Design Patterns <a name="design">
+
+### Atomic Design
+
+I used the [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) for the component structure.
+
+## Styling <a name="styling">
+
+Styling is done with [MUI](https://mui.com/) and the Theme provider of MUI in [`_app.tsx`](src/pages/\_app.tsx). The styling of most of the colors and fonts is done in [theme.tsx](src/theme.tsx).
+
+## Routing <a name="routing">
+
+Routing is handled by [Next.js](https://nextjs.org/) and all routes are in the folder [pages](src/pages). For routing to a new page I used the [Next Router](https://nextjs.org/docs/pages/building-your-application/routing).
+
+## API Endpoints <a name="endpoints">
+
+The api endpoint to the packend are located in the [modules](src/modules) folder. Separated in authentication endpoints and other endpoints.
+
+## External Dependencies <a name="dependencies">
+
+Besides mentioned packages I also added:
+
+- [SWR](https://swr.vercel.app/) for data fetching of [user data](src/modules/auth/api/AuthAPI.tsx) and [maze data](src/modules/API.tsx).
+- [monaco-editor](https://microsoft.github.io/monaco-editor/) for the [code block component](src/common/components/organisms/Algorithm/AlgorithmCodeBlock.tsx) to edit the algorithm code.
+- [husky](https://typicode.github.io/husky/) and [eslint](https://eslint.org/) for linting the code before [every commit](.husky/pre-commit).
+
+### Diagrams <a name="diagrams">
 
 |                     [Context Diagram](images/1_mms_overview.png)                      |                    [Container Diagram](images/2_application_overview.png)                    |
 | :-----------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
