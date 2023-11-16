@@ -1,3 +1,3 @@
-import EditPage from "../../common/components/Algorithms/AlgorithmEditPage.tsx";
+import EditPage from "../../common/components/pages/AlgorithmEditPage.jsx";
 
 export default EditPage;

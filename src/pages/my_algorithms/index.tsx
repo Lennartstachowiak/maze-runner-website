@@ -1,3 +1,3 @@
-import MyAlgorithms from "../../common/components/Algorithms";
+import AlgorithmPage from "../../common/components/pages/AlgorithmPage";
 
-export default MyAlgorithms;
+export default AlgorithmPage;

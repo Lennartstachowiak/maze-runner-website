@@ -1,0 +1,54 @@
+import { Grid } from "@mui/material";
+import React from "react";
+import MazeDescription from "../../molecules/Maze/MazeDescription";
+import MazeHighscore from "../../molecules/Maze/MazeHighscore";
+import MazeRender from "../../molecules/Maze/MazeRender";
+import { MazeSolution } from "../../pages/MazePage";
+interface MazePreviewBlockComponentProps {
+  name: string;
+  difficulty: string;
+  highscores: [];
+  imgLink: string;
+  mazeStructure: [][];
+  mazeSolution?: MazeSolution | null;
+}
+
+const MazePreviewBlock = (props: MazePreviewBlockComponentProps) => {
+  const { name, difficulty, highscores, imgLink, mazeStructure, mazeSolution } =
+    props;
+  return (
+    <Grid
+      container
+      direction="row"
+      wrap="nowrap"
+      paddingY={3}
+      paddingX={5}
+      sx={{
+        borderRadius: 7,
+        backgroundColor: (theme) => theme.palette.background.paper,
+      }}
+    >
+      <Grid item xs={6}>
+        <MazeDescription name={name} difficulty={difficulty} />
+        <MazeHighscore highscores={highscores} />
+      </Grid>
+      <Grid item xs={1} />
+      <Grid item xs={5} padding={2}>
+        {mazeStructure && mazeSolution ? (
+          <MazeRender
+            mazeStructure={mazeStructure}
+            mazeSolution={mazeSolution}
+          />
+        ) : (
+          <img
+            width="95%"
+            title="Maze Example"
+            src={"data:image/png;base64," + imgLink}
+          />
+        )}
+      </Grid>
+    </Grid>
+  );
+};
+
+export default MazePreviewBlock;

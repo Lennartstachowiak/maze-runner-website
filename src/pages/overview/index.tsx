@@ -1,3 +1,3 @@
-import OverviewPage from "../../common/components/Overview";
+import OverviewPage from "../../common/components/pages/Overview";
 
 export default OverviewPage;

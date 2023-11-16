@@ -1,3 +1,3 @@
-import MazePreview from "../common/components/Maze";
+import MazePage from "../common/components/pages/MazePage";
 
-export default MazePreview;
+export default MazePage;

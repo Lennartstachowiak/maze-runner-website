@@ -1,3 +1,3 @@
-import Homepage from "../common/components/Homepage";
+import Homepage from "../common/components/pages/Homepage";
 
 export default Homepage;

@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { PublicConfiguration } from "swr/_internal";
 import { MazeProps } from "../common/types/maze";
-import { AlgorithmInterface } from "../common/components/Algorithms/AlgorithmPreviewList/types";
+import { AlgorithmInterface } from "../common/types/Algorithm/types";
 
 type FetchProps = [input: RequestInfo | URL, init?: RequestInit | undefined];
 

@@ -4,8 +4,8 @@ import type { AppProps } from "next/app";
 import { useHandleAuth } from "../modules/auth/api/AuthAPI";
 import getTheme from "../theme";
 import React from "react";
-import Wrapper from "../common/components/components/Wrapper";
-import LoadingDialog from "../common/components/components/LoadingDialog";
+import Wrapper from "../common/components/template/Wrapper";
+import LoadingDialog from "../common/components/molecules/LoadingDialog";
 import "dotenv/config";
 import { RecoilRoot } from "recoil";
 
