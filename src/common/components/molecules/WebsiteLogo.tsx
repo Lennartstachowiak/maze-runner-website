@@ -13,11 +13,16 @@ const WebsiteLogo = () => {
       <Box
         component="img"
         alt="logo"
-        sx={{ height: 25, width: 25, marginRight: 1.5 }}
+        sx={{ height: 70, width: 70, marginRight: 1.5, marginTop: 1 }}
         src="favicon.ico"
       />
-      <Typography variant="h4" color="primary.dark" sx={{ flexGrow: 1 }}>
-        Micromouse Simulator
+      <Typography
+        variant="h4"
+        fontWeight={400}
+        color="secondary.dark"
+        sx={{ flexGrow: 1 }}
+      >
+        Maze Runner
       </Typography>
     </Button>
   );
