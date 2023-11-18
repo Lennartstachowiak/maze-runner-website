@@ -80,6 +80,7 @@ const handleRegister = async (
       body: JSON.stringify({
         email: email,
         password: password,
+        repeatedPassword: repeatedPassword,
       }),
     });
     if (res.status !== 200) {

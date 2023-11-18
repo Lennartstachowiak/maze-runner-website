@@ -7,6 +7,7 @@ import {
   Stack,
   Switch,
   TextField,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import { handleLogin, handleRegister } from "../../../modules/auth/api/AuthAPI";
@@ -27,8 +28,17 @@ const RegisterDialog = (props: RegisterDialogProps) => {
   } = props;
   const [isLogin, setIsLogin] = React.useState(true);
   const [email, setEmail] = React.useState("");
+  const [isEmailValid, setIsEmailValid] = React.useState(false);
+  const [isPasswordValid, setIsPasswordValid] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [repeatedPassword, setRepeatedPassword] = React.useState("");
+
+  React.useEffect(() => {
+    const validEmail = isValidEmail(email);
+    const validPassword = isValidPassword(password);
+    setIsEmailValid(validEmail);
+    setIsPasswordValid(validPassword);
+  }, [email, password]);
 
   const handleClickLogin = async () => {
     await handleLogin(email, password);
@@ -39,18 +49,40 @@ const RegisterDialog = (props: RegisterDialogProps) => {
     await handleRegister(email, password, repeatedPassword);
     await mutate();
   };
+
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailRegex.test(email);
+  };
+
+  const isValidPassword = (password: string) => {
+    // Regular expression pattern for password validation
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[a-zA-Z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
+  const showEmailInfo = !isEmailValid && email != "" && !isLogin;
+  const showPasswordInfo = !isPasswordValid && password != "" && !isLogin;
+
   const dialogTitle = (
     <DialogTitle id={"title"}>{isLogin ? "Login" : "Register"}</DialogTitle>
   );
   const dialogContent = (
     <DialogContent>
-      <Stack spacing={2}>
+      <Stack spacing={2} paddingY={1}>
         <TextField
           id="email"
           label="E-Mail"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
+        {showEmailInfo && (
+          <Typography color="error">
+            Please enter a valid email address in the format
+            example@example.com.
+          </Typography>
+        )}
         <TextField
           type="password"
           id="password"
@@ -58,6 +90,12 @@ const RegisterDialog = (props: RegisterDialogProps) => {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
+        {showPasswordInfo && (
+          <Typography color="error">
+            Password must be 8 characters or more and include at least one
+            letter, one digit, and one special symbol.
+          </Typography>
+        )}
         {isLogin ? (
           <></>
         ) : (
@@ -83,7 +121,11 @@ const RegisterDialog = (props: RegisterDialogProps) => {
           Login
         </Button>
       ) : (
-        <Button onClick={handleClickRegister} color="primary">
+        <Button
+          disabled={!isEmailValid || !isPasswordValid}
+          onClick={handleClickRegister}
+          color="primary"
+        >
           Register
         </Button>
       )}
