@@ -24,18 +24,31 @@ const GenerateNewMaze = (props: GenerateMazeProps) => {
   const { mutate } = props;
   const [mazeName, setMazeName] = useState("");
   const [mazeSize, setMazeSize] = useState(30);
+  const [errorMessage, setErrorMessage] = useState("");
   const [generateType, setGenerateType] = useState<GenerateTypes>(
     "RecursiveBacktracking"
   );
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMazeName(event.target.value);
+    if (errorMessage !== "") {
+      setErrorMessage("");
+    }
   };
   const handleChangeSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMazeSize(parseInt(event.target.value));
   };
   const handleGenerateNewMaze = async () => {
-    await generateNewMaze({ mazeName, mazeSize, generateType });
-    await mutate();
+    const responseStatus: number | undefined = await generateNewMaze({
+      mazeName,
+      mazeSize,
+      generateType,
+    });
+    if (responseStatus === 409) {
+      setErrorMessage("Conflict! Name already taken!");
+    } else {
+      setErrorMessage("");
+      await mutate();
+    }
   };
   const handleTypeChange = (event: SelectChangeEvent) => {
     setGenerateType(event.target.value as GenerateTypes);
@@ -56,6 +69,11 @@ const GenerateNewMaze = (props: GenerateMazeProps) => {
                 backgroundColor: (theme) => theme.palette.background.paper,
               }}
             />
+            {errorMessage !== "" && (
+              <Typography variant="body1" color="error">
+                {errorMessage}
+              </Typography>
+            )}
           </Grid>
           <Grid item>
             <TextField

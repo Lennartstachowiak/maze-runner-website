@@ -265,8 +265,7 @@ export const generateNewMaze = async ({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ mazeName, mazeSize, generateType }),
     });
-    const data = await res.json();
-    return data;
+    return res.status;
   } catch (error) {
     console.error(error);
   }
