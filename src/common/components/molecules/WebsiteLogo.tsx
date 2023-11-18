@@ -17,8 +17,8 @@ const WebsiteLogo = () => {
         src="favicon.ico"
       />
       <Typography
-        variant="h4"
-        fontWeight={400}
+        variant="h3"
+        fontWeight={300}
         color="secondary.dark"
         sx={{ flexGrow: 1 }}
       >
