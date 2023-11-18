@@ -13,7 +13,7 @@ const WebsiteLogo = () => {
       <Box
         component="img"
         alt="logo"
-        sx={{ height: 70, width: 70, marginRight: 1.5, marginTop: 1 }}
+        sx={{ height: 70, width: 70, marginRight: 1.5, marginY: 1 }}
         src="favicon.ico"
       />
       <Typography
