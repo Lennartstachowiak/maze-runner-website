@@ -18,9 +18,10 @@ const Menu = (props: MenuProps) => {
       container
       direction="row"
       justifyContent="space-between"
-      wrap="nowrap"
+      wrap="wrap-reverse"
+      spacing={2}
     >
-      <Grid item>
+      <Grid item md={7} xs={12}>
         <Score isDisabled={isDiabled} score={score} />
       </Grid>
       <Grid item>

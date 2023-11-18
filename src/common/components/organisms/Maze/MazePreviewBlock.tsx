@@ -20,7 +20,7 @@ const MazePreviewBlock = (props: MazePreviewBlockComponentProps) => {
     <Grid
       container
       direction="row"
-      wrap="nowrap"
+      wrap="wrap"
       paddingY={3}
       paddingX={5}
       sx={{
@@ -28,12 +28,11 @@ const MazePreviewBlock = (props: MazePreviewBlockComponentProps) => {
         backgroundColor: (theme) => theme.palette.background.paper,
       }}
     >
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <MazeDescription name={name} difficulty={difficulty} />
         <MazeHighscore highscores={highscores} />
       </Grid>
-      <Grid item xs={1} />
-      <Grid item xs={5} padding={2}>
+      <Grid item xs={12} sm={6} padding={4} minWidth={200}>
         {mazeStructure && mazeSolution ? (
           <MazeRender
             mazeStructure={mazeStructure}
@@ -41,7 +40,8 @@ const MazePreviewBlock = (props: MazePreviewBlockComponentProps) => {
           />
         ) : (
           <img
-            width="95%"
+            width="100%"
+            style={{ minWidth: 180 }}
             title="Maze Example"
             src={"data:image/png;base64," + imgLink}
           />

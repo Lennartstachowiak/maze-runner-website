@@ -36,7 +36,14 @@ const Wrapper = (props: WrapperProps) => {
                   color: (theme) => theme.palette.grey[500],
                 }}
               >
-                <ArrowBackIcon />
+                <ArrowBackIcon
+                  sx={{
+                    width: "4vw",
+                    height: "4vw",
+                    maxWidth: 25,
+                    maxHeight: 25,
+                  }}
+                />
               </IconButton>
             </Grid>
           )}

@@ -9,17 +9,15 @@ interface ScoreProps {
 
 const Score = (props: ScoreProps) => {
   const { isDisabled, score } = props;
-
+  const minWidth = 170;
   return (
-    <Grid container spacing={2}>
-      <Grid item>
+    <Grid container spacing={2} wrap="wrap">
+      <Grid item xs={12} sm={4} minWidth={minWidth}>
         <Typography
           variant="h4"
           padding={3}
           textAlign="center"
           sx={{
-            height: 80,
-            width: 200,
             opacity: !isDisabled ? 1 : 0.5,
             backgroundColor: (theme) => theme.palette.background.paper,
             borderRadius: 7,
@@ -28,14 +26,12 @@ const Score = (props: ScoreProps) => {
           {score.steps} steps
         </Typography>
       </Grid>
-      <Grid item>
+      <Grid item xs={12} sm={4} minWidth={minWidth}>
         <Typography
           variant="h4"
           padding={3}
           textAlign="center"
           sx={{
-            height: 80,
-            width: 200,
             opacity: !isDisabled ? 1 : 0.5,
             backgroundColor: (theme) => theme.palette.background.paper,
             borderRadius: 7,
@@ -44,14 +40,12 @@ const Score = (props: ScoreProps) => {
           {score.visitedSteps} search
         </Typography>
       </Grid>
-      <Grid item>
+      <Grid item xs={12} sm={4} minWidth={minWidth}>
         <Typography
           variant="h4"
           padding={3}
           textAlign="center"
           sx={{
-            height: 80,
-            width: 200,
             opacity: !isDisabled ? 1 : 0.5,
             backgroundColor: (theme) => theme.palette.background.paper,
             borderRadius: 7,

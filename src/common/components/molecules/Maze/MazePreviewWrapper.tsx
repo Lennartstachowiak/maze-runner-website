@@ -19,7 +19,7 @@ export const MazePreviewCard = (props: MazeProps) => {
     <Grid
       container
       padding={0}
-      width="70%"
+      width="100%"
       sx={{
         borderRadius: 7,
         backgroundColor: (theme) => theme.palette.background.paper,
@@ -39,16 +39,20 @@ export const MazePreviewCard = (props: MazeProps) => {
         <IconButton
           sx={{
             position: "absolute",
-            bottom: 0,
-            right: 0,
-            height: 120,
-            width: 120,
+            bottom: 20,
+            right: 20,
+            height: "20vw",
+            maxHeight: 120,
+            width: "20vw",
+            maxWidth: 120,
             color: (theme) => theme.palette.background.default,
             backgroundColor: (theme) => theme.palette.secondary.main,
           }}
           onClick={handleClick}
         >
-          <PlayArrowIcon sx={{ height: 75, width: 75 }} />
+          <PlayArrowIcon
+            sx={{ height: "12vw", maxHeight: 75, width: "12vw", maxWidth: 75 }}
+          />
         </IconButton>
       </Grid>
     </Grid>
