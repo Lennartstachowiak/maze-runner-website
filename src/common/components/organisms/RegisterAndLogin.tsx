@@ -29,6 +29,7 @@ const RegisterDialog = (props: RegisterDialogProps) => {
   const [isLogin, setIsLogin] = React.useState(true);
   const [email, setEmail] = React.useState("");
   const [isEmailValid, setIsEmailValid] = React.useState(false);
+  const [userError, setUserError] = React.useState("");
   const [isPasswordValid, setIsPasswordValid] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [repeatedPassword, setRepeatedPassword] = React.useState("");
@@ -38,15 +39,26 @@ const RegisterDialog = (props: RegisterDialogProps) => {
     const validPassword = isValidPassword(password);
     setIsEmailValid(validEmail);
     setIsPasswordValid(validPassword);
+    setUserError("");
   }, [email, password]);
 
   const handleClickLogin = async () => {
-    await handleLogin(email, password);
+    const response: Response | undefined = await handleLogin(email, password);
+    if (!response?.ok) {
+      alert(response?.statusText);
+    }
     await mutate();
   };
 
   const handleClickRegister = async () => {
-    await handleRegister(email, password, repeatedPassword);
+    const response: Response | undefined = await handleRegister(
+      email,
+      password,
+      repeatedPassword
+    );
+    if (response?.status === 409) {
+      setUserError(response.statusText);
+    }
     await mutate();
   };
 
@@ -71,6 +83,9 @@ const RegisterDialog = (props: RegisterDialogProps) => {
   const dialogContent = (
     <DialogContent>
       <Stack spacing={2} paddingY={1}>
+        {userError !== "" && (
+          <Typography color="error">User already exist! ({email})</Typography>
+        )}
         <TextField
           id="email"
           label="E-Mail"

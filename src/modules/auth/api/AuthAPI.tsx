@@ -52,13 +52,9 @@ const handleLogin = async (email: string, password: string) => {
         password: password,
       }),
     });
-    if (res.status !== 200) {
-      throw res.status;
-    }
+    return res;
   } catch (error) {
-    if (error === 401) {
-      alert("Invalid credentials");
-    }
+    return;
   }
 };
 const handleRegister = async (
@@ -83,13 +79,9 @@ const handleRegister = async (
         repeatedPassword: repeatedPassword,
       }),
     });
-    if (res.status !== 200) {
-      throw res.status;
-    }
+    return res;
   } catch (error) {
-    if (error === 401) {
-      alert("Invalid credentials");
-    }
+    return;
   }
 };
 
