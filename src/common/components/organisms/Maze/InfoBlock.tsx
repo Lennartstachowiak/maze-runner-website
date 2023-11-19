@@ -52,12 +52,8 @@ const InfoBlock = (props: InfoBlockProps) => {
   };
 
   return (
-    <Grid
-      container
-      rowSpacing={4}
-      sx={{ minWidth: 260, width: "100%", maxWidth: "50vw" }}
-    >
-      <Grid item sx={{ width: "100%" }}>
+    <Grid container rowSpacing={4} sx={{ width: "100%" }}>
+      <Grid item sx={{ width: "100%", minWidth: 260, maxWidth: "50vw" }}>
         <Button
           onClick={handleGoToOverview}
           sx={{
@@ -89,10 +85,9 @@ const InfoBlock = (props: InfoBlockProps) => {
       </Grid>
 
       {message && (
-        <Grid item>
+        <Grid item overflow="scroll">
           <Grid
             container
-            marginX={4}
             paddingY={4}
             paddingX={7}
             height="100%"

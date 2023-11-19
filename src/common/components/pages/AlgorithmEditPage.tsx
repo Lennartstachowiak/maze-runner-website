@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { AlgorithmInterface } from "../../types/Algorithm/types";
 import Grid from "@mui/material/Grid";
 import CodeBlockComponent from "../organisms/Algorithm/AlgorithmCodeBlock";
@@ -10,7 +10,12 @@ import {
   useGetSingleAlgorithm,
 } from "../../../modules/API";
 import { KeyedMutator } from "swr";
-import { Button, CircularProgress, Typography } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import DeleteDialog from "../molecules/Algorithm/DeleteDialog";
 import RenameDialog from "../molecules/Algorithm/RenameDialog";
 import { useRouter } from "next/router";
@@ -31,6 +36,9 @@ const EditPage = () => {
     isError: boolean;
     mutate: KeyedMutator<unknown>;
   } = useGetSingleAlgorithm(algorithm_id);
+
+  const mazeRef = useRef<HTMLDivElement>(null);
+  const isSmallScreen = useMediaQuery("(max-width: 899px)");
 
   const [testMazeSolution, setTestMazeSolution] =
     React.useState<MazeSolution | null>(null);
@@ -64,6 +72,12 @@ const EditPage = () => {
       await mutate();
     }
   };
+
+  useEffect(() => {
+    if (mazeRef.current) {
+      mazeRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [testMazeSolution]);
 
   if (isError) {
     return <>ERROR</>;
@@ -105,8 +119,13 @@ const EditPage = () => {
   };
 
   return (
-    <Grid container direction="row" spacing={5}>
-      <Grid item xs={8}>
+    <Grid
+      container
+      direction="row"
+      spacing={5}
+      paddingTop={isSmallScreen ? 5 : 0}
+    >
+      <Grid item md={7.8} xs={12}>
         <CodeBlockComponent
           algorithm={algorithm}
           showLineNumbers={true}
@@ -116,7 +135,7 @@ const EditPage = () => {
           editable={true}
         />
       </Grid>
-      <Grid item xs={4}>
+      <Grid item md={4.2} xs={12} ref={mazeRef}>
         <InfoBlock mazeSolution={testMazeSolution} />
       </Grid>
       <DeleteDialog
