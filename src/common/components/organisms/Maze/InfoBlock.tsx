@@ -55,8 +55,7 @@ const InfoBlock = (props: InfoBlockProps) => {
     <Grid
       container
       rowSpacing={4}
-      height="70vh"
-      sx={{ width: "100%", maxWidth: "30vw" }}
+      sx={{ minWidth: 260, width: "100%", maxWidth: "50vw" }}
     >
       <Grid item sx={{ width: "100%" }}>
         <Button
@@ -77,11 +76,10 @@ const InfoBlock = (props: InfoBlockProps) => {
                     {maze.name}
                   </Typography>
                 </Grid>
-                <Grid item>
+                <Grid item width="100%" minWidth={200}>
                   <MazeRender
                     mazeStructure={maze?.structure}
                     mazeSolution={mazeSolution}
-                    size={200}
                   />
                 </Grid>
               </Grid>

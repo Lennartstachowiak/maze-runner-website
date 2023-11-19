@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Grid, Typography, CircularProgress, IconButton } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  CircularProgress,
+  IconButton,
+  useMediaQuery,
+} from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Editor, { Monaco } from "@monaco-editor/react";
@@ -132,10 +138,13 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
     constrainedInstance.addRestrictionsTo(model, restrictions);
   };
 
+  const isSmallScreen = useMediaQuery("(max-width: 499px)");
+
   return (
     <Grid
       container
-      padding={7}
+      paddingY={isSmallScreen ? 4 : 7}
+      paddingX={isSmallScreen ? 2 : 7}
       overflow="auto"
       sx={{
         borderRadius: 10,
@@ -182,7 +191,7 @@ const CodeBlockComponent = (props: CodeBlockProps) => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item>
+            <Grid item paddingBottom={2}>
               <ActionButtonComponent editableCode={editableCode} />
             </Grid>
           </Grid>

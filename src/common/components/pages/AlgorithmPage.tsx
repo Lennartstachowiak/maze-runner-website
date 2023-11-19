@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import React from "react";
-import { AlgorithmListVertical } from "../organisms/Algorithm/AlgorithmPreviewBlock";
+import {
+  AlgorithmListHorizontal,
+  AlgorithmListVertical,
+} from "../organisms/Algorithm/AlgorithmPreviewBlock";
 import { AlgorithmInterface } from "../../types/Algorithm/types";
 import Grid from "@mui/material/Grid";
 import CodeBlockComponent from "../organisms/Algorithm/AlgorithmCodeBlock";
@@ -11,7 +14,12 @@ import {
   useGetAlgorithms,
 } from "../../../modules/API";
 import { KeyedMutator } from "swr";
-import { Button, CircularProgress, Typography } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import DeleteDialog from "../molecules/Algorithm/DeleteDialog";
 import RenameDialog from "../molecules/Algorithm/RenameDialog";
 import { useRouter } from "next/router";
@@ -76,6 +84,8 @@ const AlgorithmPage = () => {
     }
   };
 
+  const isSmallScreen = useMediaQuery("(max-width: 899px)");
+
   if (isError) {
     return <>ERROR</>;
   }
@@ -99,17 +109,27 @@ const AlgorithmPage = () => {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={3}>
-        <AlgorithmListVertical
-          title="My Algorithms"
-          selectedAlgorithm={selectedAlgorithm}
-          setAlgorithm={setAlgorithm}
-          algorithmList={algorithmList}
-          handelAddAlgorithm={handelAddAlgorithm}
-        />
+    <Grid container wrap="wrap">
+      <Grid item md={3} minWidth={260}>
+        {isSmallScreen ? (
+          <AlgorithmListHorizontal
+            title="My Algorithms"
+            selectedAlgorithm={selectedAlgorithm}
+            setAlgorithm={setAlgorithm}
+            algorithmList={algorithmList}
+            handelAddAlgorithm={handelAddAlgorithm}
+          />
+        ) : (
+          <AlgorithmListVertical
+            title="My Algorithms"
+            selectedAlgorithm={selectedAlgorithm}
+            setAlgorithm={setAlgorithm}
+            algorithmList={algorithmList}
+            handelAddAlgorithm={handelAddAlgorithm}
+          />
+        )}
       </Grid>
-      <Grid item xs={9}>
+      <Grid item width={isSmallScreen ? "100%" : "60vw"}>
         <CodeBlockComponent
           algorithm={selectedAlgorithm}
           showLineNumbers={true}

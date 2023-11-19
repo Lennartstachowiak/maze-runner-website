@@ -15,7 +15,7 @@ const AlgorithmList = (props: AlgorithmListDirections) => {
     handelAddAlgorithm,
   } = props;
   return (
-    <Grid container direction="column" wrap="nowrap" padding={3}>
+    <Grid container direction="column" wrap="nowrap" padding={3} minWidth={270}>
       <Grid>
         <Header title={title} />
       </Grid>
@@ -23,9 +23,12 @@ const AlgorithmList = (props: AlgorithmListDirections) => {
         container
         direction="row"
         paddingY={2}
+        paddingX={1}
         marginLeft={0}
         flexWrap={isVertical ? "wrap" : "nowrap"}
         overflow="auto"
+        rowSpacing={isVertical ? 2 : 0}
+        columnSpacing={isVertical ? 0 : 2}
       >
         {algorithmList?.map((algorithm) => {
           const disabled = !isVertical && !algorithm.isWorking;
@@ -33,8 +36,6 @@ const AlgorithmList = (props: AlgorithmListDirections) => {
             <Grid
               item
               key={algorithm.id}
-              paddingLeft={2}
-              paddingBottom={isVertical ? 2 : 0}
               sx={{
                 transform: `scale(${
                   algorithm.id === selectedAlgorithm?.id ? 1.05 : 1
@@ -53,12 +54,7 @@ const AlgorithmList = (props: AlgorithmListDirections) => {
           );
         })}
         {handelAddAlgorithm && (
-          <Grid
-            item
-            key="add-algorithm"
-            paddingLeft={2}
-            paddingBottom={isVertical ? 2 : 0}
-          >
+          <Grid item key="add-algorithm" paddingBottom={isVertical ? 2 : 0}>
             <Button
               onClick={handelAddAlgorithm}
               sx={{

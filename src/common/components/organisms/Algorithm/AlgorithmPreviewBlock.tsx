@@ -23,7 +23,13 @@ const AlgorithmListVertical = (props: AlgorithmListInterface) => {
 };
 
 const AlgorithmListHorizontal = (props: AlgorithmListInterface) => {
-  const { title, selectedAlgorithm, setAlgorithm, algorithmList } = props;
+  const {
+    title,
+    selectedAlgorithm,
+    setAlgorithm,
+    algorithmList,
+    handelAddAlgorithm,
+  } = props;
   return (
     <AlgorithmList
       title={title}
@@ -31,6 +37,7 @@ const AlgorithmListHorizontal = (props: AlgorithmListInterface) => {
       selectedAlgorithm={selectedAlgorithm}
       setAlgorithm={setAlgorithm}
       algorithmList={algorithmList}
+      handelAddAlgorithm={handelAddAlgorithm}
     />
   );
 };

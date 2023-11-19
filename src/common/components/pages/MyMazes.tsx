@@ -19,35 +19,38 @@ const MyMazes = () => {
     }
   };
   return (
-    <Grid>
-      <MazeSelection
-        mazes={mazes}
-        title="My Mazes"
-        isLoading={isLoading}
-        isError={isError}
-        selectedMaze={selectedMaze}
-        setMaze={setMaze}
-      />
-      {selectedMaze && (
-        <Button variant="contained" color="error" onClick={handleDeleteMaze}>
-          <DeleteIcon sx={{ marginRight: 1 }} />
-          Delete selected maze
-        </Button>
-      )}
-      {mazes?.length < 1 && (
-        <Grid
-          container
-          width="100%"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Grid item>
-            <Typography variant="h4" color="initial">
-              No mazes.
-            </Typography>
+    <Grid container>
+      <Grid item padding={3} width={"100%"}>
+        <MazeSelection
+          mazes={mazes}
+          title="My Mazes"
+          isLoading={isLoading}
+          isError={isError}
+          selectedMaze={selectedMaze}
+          setMaze={setMaze}
+        />
+        {selectedMaze && (
+          <Button variant="contained" color="error" onClick={handleDeleteMaze}>
+            <DeleteIcon sx={{ marginRight: 1 }} />
+            Delete selected maze
+          </Button>
+        )}
+        {mazes?.length < 1 && (
+          <Grid
+            container
+            width="100%"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Grid item>
+              <Typography variant="h4" color="initial">
+                No mazes.
+              </Typography>
+            </Grid>
           </Grid>
-        </Grid>
-      )}
+        )}
+      </Grid>
+
       <GenerateNewMaze mutate={mutate} />
     </Grid>
   );

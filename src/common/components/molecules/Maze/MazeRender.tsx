@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import _ from "lodash";
 import { MazeSolution } from "../../pages/MazePage";
+import { Grid } from "@mui/material";
 
 interface Cell {
   north: number;
@@ -16,12 +17,26 @@ type SolutionObject = [number, number];
 interface MazeComponentProps {
   mazeStructure: Cell[][];
   mazeSolution: MazeSolution | null;
-  size?: number;
 }
 
 const MazeRender = (props: MazeComponentProps) => {
-  const { mazeStructure, mazeSolution, size = 400 } = props;
+  const { mazeStructure, mazeSolution } = props;
+  const [size, setSize] = React.useState<number>(0);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const parentRef = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleResize() {
+      if (parentRef.current) {
+        setSize(parentRef.current.clientWidth);
+      }
+    }
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [parentRef]);
 
   useEffect(() => {
     const drawMaze = () => {
@@ -41,7 +56,7 @@ const MazeRender = (props: MazeComponentProps) => {
       const currentMaze = mazeStructure;
       const currentSolution = mazeSolution?.solution;
       const currentSearchPath = mazeSolution?.visited;
-      const windowSize = size;
+      const windowSize = parentRef.current?.clientWidth || 400;
       const cellSize = windowSize / currentMaze.length;
       const halfCellSize = cellSize / 2;
       const lineThickness = cellSize / 12;
@@ -172,9 +187,13 @@ const MazeRender = (props: MazeComponentProps) => {
       }
     };
     drawMaze();
-  }, [mazeSolution]);
+  }, [mazeSolution, size]);
 
-  return <canvas ref={canvasRef} width={size} height={size} />;
+  return (
+    <Grid ref={parentRef} width="100%" position="relative">
+      <canvas ref={canvasRef} width={size} height={size} />
+    </Grid>
+  );
 };
 
 export default MazeRender;

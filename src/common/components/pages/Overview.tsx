@@ -27,14 +27,14 @@ const OverviewPage = () => {
   }
   return (
     <Grid container>
-      <Grid item paddingBottom={3} paddingLeft={2}>
+      <Grid item padding={3}>
         <Header title={"Overview"} />
       </Grid>
-      <Grid container wrap="nowrap" spacing={5}>
-        <Grid item xs={4.2}>
+      <Grid container wrap="wrap" spacing={5}>
+        <Grid item md={4.2} xs={12}>
           <InfoBlock mazeSolution={null} maze={maze} />
         </Grid>
-        <Grid item xs={7.8}>
+        <Grid item md={7.8} xs={12}>
           <MazeStructure maze={maze} />
         </Grid>
       </Grid>

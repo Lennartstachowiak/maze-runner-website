@@ -32,8 +32,8 @@ const AlgorithmItem = (props: AlgorithmInterface & AlgorithmState) => {
           disabled
             ? theme.palette.background.paper
             : id === selectedAlgorithm?.id
-            ? theme.palette.secondary.light
-            : theme.palette.background.paper,
+              ? theme.palette.secondary.light
+              : theme.palette.background.paper,
         borderRadius: 7,
       }}
     >

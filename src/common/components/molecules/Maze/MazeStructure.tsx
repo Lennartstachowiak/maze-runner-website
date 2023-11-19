@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Typography, Button } from "@mui/material";
+import { Grid, Typography, Button, useMediaQuery } from "@mui/material";
 import { MazeProps } from "../../../types/maze";
 
 interface MazeStructureProps {
@@ -13,6 +13,7 @@ const MazeStructure = (props: MazeStructureProps) => {
   const handleChangeView = () => {
     setPrettyView((currentState) => !currentState);
   };
+  const isSmallScreen = useMediaQuery("(max-width: 499px)");
   const strucutreList = prettyView ? (
     structure.map((row, indexRow) => (
       <Grid
@@ -51,7 +52,7 @@ const MazeStructure = (props: MazeStructureProps) => {
   return (
     <Grid
       container
-      padding={7}
+      padding={isSmallScreen ? 4 : 7}
       marginBottom={5}
       sx={{
         borderRadius: 10,
