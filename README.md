@@ -6,7 +6,6 @@
 
 - [Documentation](#documentation)
   - [Overview](#overview)
-    - [Website Navigation](#navigation)
   - [Project Structure](#structure)
   - [Design Patterns](#design)
   - [Styling](#styling)
@@ -45,7 +44,11 @@ This is the website for [Maze Runner Backend](https://github.com/Lennartstachowi
 To interact with the website you also need to run the backend.
 On the website the user can interact with they algorithms and mazes. The user can edit algorithms and create new algorithms, can create new mazes, can solve mazes and compete against others in the highscore list.
 
-### Website Navigation <a name="navigation"></a>
+### Tech Stack
+
+- The website is build with the frameworks [React](https://react.dev/), [Next.js](https://nextjs.org/) and [Typescript](https://www.typescriptlang.org/) as language. Styling is done with [MUI](https://mui.com/)
+
+### Website Navigation
 
 |                           How to open the navigation bar.                           |                                    Navigation bar                                     |
 | :---------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
@@ -54,10 +57,6 @@ On the website the user can interact with they algorithms and mazes. The user ca
 **How to navigate to maze page**
 
 <img src="images/navigation_maze.png" alt="Frontend Pages Overview" style="width: 50%;"> |
-
-### Tech Stack
-
-- The website is build with the frameworks [React](https://react.dev/), [Next.js](https://nextjs.org/) and [Typescript](https://www.typescriptlang.org/) as language. Styling is done with [MUI](https://mui.com/)
 
 ## Project Structure <a name="structure"></a>
 
