@@ -6,6 +6,7 @@
 
 - [Documentation](#documentation)
   - [Overview](#overview)
+    - [Website Navigation](#navigation)
   - [Project Structure](#structure)
   - [Design Patterns](#design)
   - [Styling](#styling)
@@ -44,7 +45,7 @@ This is the website for [Maze Runner Backend](https://github.com/Lennartstachowi
 To interact with the website you also need to run the backend.
 On the website the user can interact with they algorithms and mazes. The user can edit algorithms and create new algorithms, can create new mazes, can solve mazes and compete against others in the highscore list.
 
-## Website Navigation
+### Website Navigation <a name="navigation"></a>
 
 |                           How to open the navigation bar.                           |                                    Navigation bar                                     |
 | :---------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
