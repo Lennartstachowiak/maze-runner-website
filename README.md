@@ -46,11 +46,11 @@ On the website the user can interact with they algorithms and mazes. The user ca
 
 ## Website Navigation
 
-|          [How to open the navigation bar.](images/navigation_homepage.png)          |                      [Navigation bar](images/navigation_bar.png)                      |
+|                           How to open the navigation bar.                           |                                    Navigation bar                                     |
 | :---------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
 | <img src="images/navigation_homepage.png" alt="User Overview" style="width: 100%;"> | <img src="images/navigation_bar.png" alt="Application Overview" style="width: 100%;"> |
 
-[**How to navigate to maze page**](images/navigation_maze.png)
+**How to navigate to maze page**
 
 <img src="images/navigation_maze.png" alt="Frontend Pages Overview" style="width: 50%;"> |
 
