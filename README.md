@@ -1,4 +1,4 @@
-# <img src="images/maze-runner-logo.png" alt="Frontend Pages Overview" style="width: 20%;"> Maze Runner Website
+# <img src="images/maze-runner-logo.png" alt="Frontend Pages Overview" style="width: 10%;"> Maze Runner Website
 
 ![Cover Image](images/cover.png)
 
