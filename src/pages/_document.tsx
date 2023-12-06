@@ -3,8 +3,10 @@ import React from "react";
 
 export default function Document() {
   return (
-    <Html lang="en" title="Maze Runner Website">
-      <Head title="Maze Runner Website" />
+    <Html lang="en">
+      <Head>
+        <title>Maze Runner Website</title>
+      </Head>
       <body>
         <Main />
         <NextScript />
