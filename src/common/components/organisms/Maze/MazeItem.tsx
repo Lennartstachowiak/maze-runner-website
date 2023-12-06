@@ -45,6 +45,7 @@ const MazeItem = (props: MazeItem) => {
           <img
             width={165}
             height={165}
+            alt="Maze Image"
             title="Maze Image"
             src={"data:image/png;base64," + maze.imgLink}
           />

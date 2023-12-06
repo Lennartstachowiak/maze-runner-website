@@ -43,6 +43,7 @@ const MazePreviewBlock = (props: MazePreviewBlockComponentProps) => {
             width="100%"
             style={{ minWidth: 180 }}
             title="Maze Example"
+            alt="Maze Example"
             src={"data:image/png;base64," + imgLink}
           />
         )}

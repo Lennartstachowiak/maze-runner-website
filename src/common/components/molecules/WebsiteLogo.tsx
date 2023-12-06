@@ -12,7 +12,7 @@ const WebsiteLogo = () => {
     >
       <Box
         component="img"
-        alt="logo"
+        alt="Maze Runner Logo"
         sx={{ height: 70, width: 70, marginRight: 1.5, marginY: 1 }}
         src="favicon.ico"
       />
