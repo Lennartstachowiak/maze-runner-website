@@ -4,7 +4,7 @@ import React from "react";
 export default function Document() {
   return (
     <Html lang="en" title="Maze Runner Website">
-      <Head />
+      <Head title="Maze Runner Website" />
       <body>
         <Main />
         <NextScript />
