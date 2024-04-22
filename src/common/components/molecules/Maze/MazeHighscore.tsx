@@ -2,6 +2,8 @@ import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { PlayerProps } from "../../../types/Maze/previewTypes";
 import PlayerScore from "./PlayerScore";
+import TextButton from "../../atoms/Button/TextButton";
+import router from "next/router";
 
 interface MazeHighscoreComponentProps {
   highscores: [];
@@ -13,6 +15,9 @@ const MazeHighscore = (props: MazeHighscoreComponentProps) => {
     (a: PlayerProps, b: PlayerProps) => a.score - b.score
   );
   const top_3_players = sorted_highscores.slice(0, 3);
+  const handleOnClickUser = (userId: string) => {
+    router.push(`/user/${userId}`);
+  };
   return (
     <Grid item height="100%" width="100%">
       <Grid
@@ -45,6 +50,12 @@ const MazeHighscore = (props: MazeHighscoreComponentProps) => {
               </Grid>
               <Grid item>
                 <PlayerScore player={player} />
+              </Grid>
+              <Grid marginLeft="auto">
+                <TextButton
+                  text={"Go to profile"}
+                  handleClick={() => handleOnClickUser(player.user_id)}
+                />
               </Grid>
             </Grid>
           ))}

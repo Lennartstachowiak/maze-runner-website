@@ -82,6 +82,16 @@ const DrawerMenu = (props: DrawerMenuProps) => {
     handleDrawerClick();
   };
 
+  const handleOnClickFollowing = async () => {
+    router.push(`/user/follows`);
+    handleDrawerClick();
+  };
+
+  const handleOnClickFollower = async () => {
+    router.push(`/user/followers`);
+    handleDrawerClick();
+  };
+
   return (
     <Drawer anchor={"right"} open={drawerState} onClose={handleDrawerClick}>
       <IconButton
@@ -132,6 +142,12 @@ const DrawerMenu = (props: DrawerMenuProps) => {
             text={"Rules / Overview"}
             handleClick={handleGoToOverview}
           />
+        </Grid>
+        <Grid>
+          <TextButton text="My follows" handleClick={handleOnClickFollowing} />
+        </Grid>
+        <Grid>
+          <TextButton text="My followers" handleClick={handleOnClickFollower} />
         </Grid>
         <Grid item sx={{ marginTop: 5 }}>
           <Grid container display="flex" flexDirection="column">

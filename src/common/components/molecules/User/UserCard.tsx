@@ -22,6 +22,8 @@ const UserCard = (props: UserIntefaceProps) => {
         padding: 0.5,
         borderRadius: 3.5,
         border: "1px solid grey",
+        maxWidth: "30rem",
+        justifyContent: "space-between",
       }}
     >
       <Typography variant="body1" color="initial">

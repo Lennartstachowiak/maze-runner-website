@@ -69,7 +69,7 @@ const getTheme = () => {
       default: "#F2F6EA",
     },
     primary: {
-      light: blue[100],
+      light: "#dbe8c1",
       dark: "#2a3811",
       main: blue["900"],
     },

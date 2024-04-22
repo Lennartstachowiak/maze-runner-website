@@ -1,5 +1,10 @@
 import { useRouter } from "next/router";
-import { followUser, getUser, useGetUserMazes } from "../../modules/API";
+import {
+  followMaze,
+  followUser,
+  getUser,
+  useGetUserMazes,
+} from "../../modules/API";
 import MazeSelection from "../../common/components/template/Maze/MazeSelection";
 import React from "react";
 import { MazeProps } from "../../common/types/maze";
@@ -23,7 +28,10 @@ const UserPage = () => {
     await followUser(userId);
   };
   const handleFollowMaze = async () => {
-    return;
+    if (selectedMaze) {
+      const maze_id = selectedMaze.id;
+      await followMaze(maze_id);
+    }
   };
   if (userLoading) {
     return <LoadingDialog loading={userLoading} />;
@@ -48,12 +56,7 @@ const UserPage = () => {
       </Grid>
       {selectedMaze && (
         <Grid item>
-          <TextButton
-            text={"Follow Maze"}
-            handleClick={function (): void {
-              throw new Error("Function not implemented.");
-            }}
-          />
+          <TextButton text={"Follow Maze"} handleClick={handleFollowMaze} />
         </Grid>
       )}
     </Grid>

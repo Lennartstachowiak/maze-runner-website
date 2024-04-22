@@ -3,7 +3,6 @@ import { PublicConfiguration } from "swr/_internal";
 import { MazeProps } from "../common/types/maze";
 import { AlgorithmInterface } from "../common/types/Algorithm/types";
 import UserInterface from "../common/types/user";
-import { includes } from "lodash";
 
 type FetchProps = [input: RequestInfo | URL, init?: RequestInit | undefined];
 
@@ -331,7 +330,7 @@ export const followMaze = async (mazeId: string) => {
     const res = await fetch(`${API_ENDPOINT}/v1/follow_maze`, {
       method: "POST",
       credentials: "include",
-      headers: { "Content-Type": "applications/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ mazeId: mazeId }),
     });
     const data = await res.json();
@@ -377,5 +376,62 @@ export const getUser = (id: string) => {
     isLoading,
     isError: error,
     mutate,
+  };
+};
+
+export const useGetFollowing = () => {
+  const { data, error, isLoading } = useSWR(
+    [
+      `${API_ENDPOINT}/v1/user_following`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      },
+    ],
+    fetcher
+  );
+  return {
+    userFollows: data as UserInterface[],
+    isLoading,
+    isError: error,
+  };
+};
+
+export const useGetFollowers = () => {
+  const { data, error, isLoading } = useSWR(
+    [
+      `${API_ENDPOINT}/v1/user_followers`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      },
+    ],
+    fetcher
+  );
+  return {
+    userFollows: data as UserInterface[],
+    isLoading,
+    isError: error,
+  };
+};
+
+export const useGetFollowedMazes = () => {
+  const { data, error, isLoading } = useSWR(
+    [
+      `${API_ENDPOINT}/v1/get_followed_maze`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      },
+    ],
+    fetcher
+  );
+  return {
+    followedMazes: data as MazeProps[],
+    isLoading,
+    isError: error,
   };
 };
