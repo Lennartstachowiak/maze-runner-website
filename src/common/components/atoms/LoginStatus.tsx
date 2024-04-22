@@ -9,7 +9,7 @@ interface LoginStatusProps {
 const LoginStatus = (props: LoginStatusProps) => {
   const { user } = props;
   return (
-    <Grid container spacing={0} direction="column" justifyContent="end">
+    <Grid container spacing={0} direction="column">
       {user != null ? (
         <Typography variant="subtitle1" color="initial">
           {user.email}

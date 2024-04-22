@@ -1,13 +1,15 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Drawer, Grid, IconButton } from "@mui/material";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import { Drawer, Grid, IconButton, TextField, Typography } from "@mui/material";
 import React from "react";
 import LoginStatus from "../atoms/LoginStatus";
 import { handleLogout } from "../../../modules/auth/api/AuthAPI";
+import { searchUser } from "../../../modules/API";
 import router from "next/router";
 import { UserProps } from "../../types";
+import UserInterface from "../../types/user";
 import { KeyedMutator } from "swr";
+import TextButton from "../atoms/Button/TextButton";
+import UserCard from "../molecules/User/UserCard";
 
 interface DrawerMenuProps {
   drawerState: boolean;
@@ -18,6 +20,9 @@ interface DrawerMenuProps {
 
 const DrawerMenu = (props: DrawerMenuProps) => {
   const { drawerState, handleDrawerClick, user, mutate } = props;
+  const [userSearch, setUserSearch] = React.useState<string>("");
+  const [userList, setUserList] = React.useState<UserInterface[] | null>(null);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const handleClickLogout = async () => {
     try {
@@ -54,6 +59,29 @@ const DrawerMenu = (props: DrawerMenuProps) => {
       console.error(error);
     }
   };
+
+  const handleChangeSearchText = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setUserSearch(event.target.value);
+  };
+
+  const handleSearch = async () => {
+    setIsLoading(true);
+    const userListData = await searchUser(userSearch);
+    if (userListData.length > 0) {
+      setUserList(userListData);
+    } else {
+      setUserList([]);
+    }
+    setIsLoading(false);
+  };
+
+  const handleOnClickUser = (user: UserInterface) => {
+    router.push(`/user/${user.id}`);
+    handleDrawerClick();
+  };
+
   return (
     <Drawer anchor={"right"} open={drawerState} onClose={handleDrawerClick}>
       <IconButton
@@ -73,42 +101,66 @@ const DrawerMenu = (props: DrawerMenuProps) => {
         direction="column"
         sx={{
           padding: 4,
-          minHeight: "85%",
+          height: "100%",
         }}
       >
-        <Grid item>
-          <Button variant="text" color="primary" onClick={handleClickLogout}>
-            <Typography variant="body1">Logout</Typography>
-          </Button>
+        <Grid
+          item
+          sx={{
+            paddingBottom: 5,
+          }}
+        >
+          <LoginStatus user={user} />
         </Grid>
         <Grid item>
-          <Button variant="text" color="primary" onClick={handleGoToAlgorithm}>
-            <Typography variant="body1">My Algorithms</Typography>
-          </Button>
+          <TextButton text={"Logout"} handleClick={handleClickLogout} />
         </Grid>
         <Grid item>
-          <Button
-            variant="text"
-            color="primary"
-            onClick={handleGoToGenerateOwnMaze}
-          >
-            <Typography variant="body1">My Mazes</Typography>
-          </Button>
+          <TextButton
+            text={"My Algorithms"}
+            handleClick={handleGoToAlgorithm}
+          />
         </Grid>
         <Grid item>
-          <Button variant="text" color="primary" onClick={handleGoToOverview}>
-            <Typography variant="body1">Rules / Overview</Typography>
-          </Button>
+          <TextButton
+            text={"My Mazes"}
+            handleClick={handleGoToGenerateOwnMaze}
+          />
+        </Grid>
+        <Grid item>
+          <TextButton
+            text={"Rules / Overview"}
+            handleClick={handleGoToOverview}
+          />
+        </Grid>
+        <Grid item sx={{ marginTop: 5 }}>
+          <Grid container display="flex" flexDirection="column">
+            <Grid item>
+              <TextField
+                id="search_player"
+                label="Search for player:"
+                value={userSearch}
+                onChange={handleChangeSearchText}
+              />
+              <TextButton text={"Search"} handleClick={handleSearch} />
+            </Grid>
+            <Grid item>
+              {isLoading ? (
+                <Typography variant="body1">Loading...</Typography>
+              ) : (
+                <></>
+              )}
+              {userList?.map((user: UserInterface) => (
+                <UserCard
+                  key={user.id}
+                  user={user}
+                  onClick={handleOnClickUser}
+                />
+              ))}
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          paddingX: 4,
-          minHeight: "15%",
-        }}
-      >
-        <LoginStatus user={user} />
-      </Box>
     </Drawer>
   );
 };

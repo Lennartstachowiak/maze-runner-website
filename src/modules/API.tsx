@@ -2,6 +2,8 @@ import useSWR from "swr";
 import { PublicConfiguration } from "swr/_internal";
 import { MazeProps } from "../common/types/maze";
 import { AlgorithmInterface } from "../common/types/Algorithm/types";
+import UserInterface from "../common/types/user";
+import { includes } from "lodash";
 
 type FetchProps = [input: RequestInfo | URL, init?: RequestInit | undefined];
 
@@ -50,6 +52,29 @@ export const useGetMyMazes = () => {
         },
       },
     ],
+    fetcher
+  );
+
+  return {
+    mazes: data as MazeProps[],
+    isLoading,
+    isError: error,
+    mutate,
+  };
+};
+
+export const useGetUserMazes = (id: string | undefined) => {
+  const { data, error, isLoading, mutate } = useSWR(
+    id
+      ? [
+          `${API_ENDPOINT}/v1/get_user_mazes?id=${id}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+          },
+        ]
+      : null,
     fetcher
   );
 
@@ -284,4 +309,73 @@ export const deleteMaze = async (mazeId: string) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const followUser = async (userIdFollowed: string) => {
+  try {
+    const res = await fetch(`${API_ENDPOINT}/v1/follow_user`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userIdFollowed: userIdFollowed }),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const followMaze = async (mazeId: string) => {
+  try {
+    const res = await fetch(`${API_ENDPOINT}/v1/follow_maze`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "applications/json" },
+      body: JSON.stringify({ mazeId: mazeId }),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const searchUser = async (email: string) => {
+  try {
+    const res = await fetch(`${API_ENDPOINT}/v1/search_user`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: email }),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getUser = (id: string) => {
+  const { data, error, isLoading, mutate } = useSWR(
+    [
+      `${API_ENDPOINT}/v1/get_user?id=${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    ],
+    fetcher
+  );
+  return {
+    user: data as UserInterface,
+    isLoading,
+    isError: error,
+    mutate,
+  };
 };
