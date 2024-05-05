@@ -84,7 +84,9 @@ const RegisterDialog = (props: RegisterDialogProps) => {
     <DialogContent>
       <Stack spacing={2} paddingY={1}>
         {userError !== "" && (
-          <Typography color="error">User already exist! ({email})</Typography>
+          <div id="user-error">
+            <Typography color="error">User already exist! ({email})</Typography>
+          </div>
         )}
         <TextField
           id="email"
@@ -128,15 +130,25 @@ const RegisterDialog = (props: RegisterDialogProps) => {
   const dialogActions = (
     <DialogActions>
       <FormControlLabel
-        control={<Switch onClick={() => setIsLogin(!isLogin)} />}
+        control={
+          <Switch
+            id="login-register-switch"
+            onClick={() => setIsLogin(!isLogin)}
+          />
+        }
         label={isLogin ? "Switch to register" : "Switch to login"}
       />
       {isLogin ? (
-        <Button onClick={handleClickLogin} color="primary">
+        <Button
+          id="handle-login-button"
+          onClick={handleClickLogin}
+          color="primary"
+        >
           Login
         </Button>
       ) : (
         <Button
+          id="handle-register-button"
           disabled={!isEmailValid || !isPasswordValid}
           onClick={handleClickRegister}
           color="primary"

@@ -9,7 +9,11 @@ interface UserButtonProps {
 const UserButton = (props: UserButtonProps) => {
   const { handleDrawerClick, userInicial } = props;
   return (
-    <IconButton aria-label="user" onClick={handleDrawerClick}>
+    <IconButton
+      id="user-avatar-button"
+      aria-label="user"
+      onClick={handleDrawerClick}
+    >
       <Avatar
         sx={{
           backgroundColor: (theme) => theme.palette.secondary.main,

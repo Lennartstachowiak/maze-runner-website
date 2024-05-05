@@ -42,7 +42,11 @@ const UserPage = () => {
   return (
     <Grid container direction="column">
       <Grid item>
-        <TextButton text={"Follow User"} handleClick={handleFollowUser} />
+        <TextButton
+          id="follow-user-button"
+          text={"Follow User"}
+          handleClick={handleFollowUser}
+        />
       </Grid>
       <Grid item>
         <MazeSelection
@@ -56,7 +60,11 @@ const UserPage = () => {
       </Grid>
       {selectedMaze && (
         <Grid item>
-          <TextButton text={"Follow Maze"} handleClick={handleFollowMaze} />
+          <TextButton
+            id="follow-maze-button"
+            text={"Follow Maze"}
+            handleClick={handleFollowMaze}
+          />
         </Grid>
       )}
     </Grid>

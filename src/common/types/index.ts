@@ -11,6 +11,7 @@ export interface AuthPropsInterface {
 }
 
 export interface TextButtonInterface {
+  id: string;
   text: string;
   handleClick: () => void;
   isDiabled?: boolean;

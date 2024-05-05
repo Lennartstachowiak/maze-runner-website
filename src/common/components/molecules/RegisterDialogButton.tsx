@@ -22,6 +22,7 @@ const RegisterDialogButton = (props: RegisterDialogButtonProps) => {
   return (
     <div>
       <TextButton
+        id="login-button"
         text="Login / Register"
         handleClick={handleOpenRegisterDialog}
       />

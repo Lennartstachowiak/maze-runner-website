@@ -53,6 +53,7 @@ const MazeHighscore = (props: MazeHighscoreComponentProps) => {
               </Grid>
               <Grid marginLeft="auto">
                 <TextButton
+                  id="profile-button"
                   text={"Go to profile"}
                   handleClick={() => handleOnClickUser(player.user_id)}
                 />

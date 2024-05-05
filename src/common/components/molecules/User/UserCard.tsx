@@ -29,7 +29,11 @@ const UserCard = (props: UserIntefaceProps) => {
       <Typography variant="body1" color="initial">
         {user.email}
       </Typography>
-      <TextButton text={"Go to profile"} handleClick={() => onClick(user)} />
+      <TextButton
+        id="go-to-profile-button"
+        text={"Go to profile"}
+        handleClick={() => onClick(user)}
+      />
     </Grid>
   );
 };

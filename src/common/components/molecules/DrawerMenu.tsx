@@ -123,31 +123,46 @@ const DrawerMenu = (props: DrawerMenuProps) => {
           <LoginStatus user={user} />
         </Grid>
         <Grid item>
-          <TextButton text={"Logout"} handleClick={handleClickLogout} />
+          <TextButton
+            id="logout-button"
+            text={"Logout"}
+            handleClick={handleClickLogout}
+          />
         </Grid>
         <Grid item>
           <TextButton
+            id="algorithm-button"
             text={"My Algorithms"}
             handleClick={handleGoToAlgorithm}
           />
         </Grid>
         <Grid item>
           <TextButton
+            id="maze-button"
             text={"My Mazes"}
             handleClick={handleGoToGenerateOwnMaze}
           />
         </Grid>
         <Grid item>
           <TextButton
+            id="rule-button"
             text={"Rules / Overview"}
             handleClick={handleGoToOverview}
           />
         </Grid>
         <Grid>
-          <TextButton text="My follows" handleClick={handleOnClickFollowing} />
+          <TextButton
+            id="follows-button"
+            text="My follows"
+            handleClick={handleOnClickFollowing}
+          />
         </Grid>
         <Grid>
-          <TextButton text="My followers" handleClick={handleOnClickFollower} />
+          <TextButton
+            id="follower-button"
+            text="My followers"
+            handleClick={handleOnClickFollower}
+          />
         </Grid>
         <Grid item sx={{ marginTop: 5 }}>
           <Grid container display="flex" flexDirection="column">
@@ -158,7 +173,11 @@ const DrawerMenu = (props: DrawerMenuProps) => {
                 value={userSearch}
                 onChange={handleChangeSearchText}
               />
-              <TextButton text={"Search"} handleClick={handleSearch} />
+              <TextButton
+                id="search-button"
+                text={"Search"}
+                handleClick={handleSearch}
+              />
             </Grid>
             <Grid item>
               {isLoading ? (
